@@ -9,7 +9,7 @@
 #include "Table.h"
 #include "TradeArea.h"
 using namespace std;
-void main(void) {
+int main() {
 	
 	//test code
 
@@ -20,4 +20,6 @@ void main(void) {
 	Blue b;
 	cout << b << endl;
 	cout << b.getCardsPerCoin(3) << endl;
+
+	return 1;
 }
