@@ -12,7 +12,10 @@ class Chain {
     private:
 };
 
-
+Chain::Chain(istream& in, const CardFactory* cf)
+{
+    
+}
 
 int Chain::sell()
 {
