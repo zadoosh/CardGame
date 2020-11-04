@@ -1,6 +1,8 @@
 #include <iostream>
 #include "CardFactory.h"
 #include "Card.h"
+#include <queue>
+#include <list>
 
 using namespace std;
 
@@ -11,4 +13,6 @@ class Hand {
         Card* play(); // returns and removes the top card from the player's hand
         Card* top(); // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
+    private:
+        
 };
