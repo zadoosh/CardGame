@@ -14,5 +14,15 @@ class Hand {
         Card* top(); // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
     private:
-        
+        queue<Card*> hand;
 };
+
+Card* Hand::play()
+{
+    return hand.pop();
+}
+
+Card* Hand::top()
+{
+    return(hand.back());
+}
