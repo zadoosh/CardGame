@@ -17,6 +17,11 @@ class Hand {
         queue<Card*> hand;
 };
 
+Hand& operator+=(Card* c)
+{
+    hand.push(c);
+}
+
 Card* Hand::play()
 {
     return hand.pop();
