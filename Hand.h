@@ -24,5 +24,5 @@ Card* Hand::play()
 
 Card* Hand::top()
 {
-    return(hand.back());
+    return(hand.peek());
 }

@@ -25,7 +25,11 @@ Chain::Chain(istream& in, const CardFactory* cf) //constructor for when the game
 
 }
 
+// counts the number of cards in the current chain and returns the number of coins according to the function Card::getCardsPerCoin
 int Chain::sell()
 {
+    for(Card c : cardChain)
+    {
 
+    }
 }
