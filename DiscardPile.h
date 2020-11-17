@@ -4,23 +4,36 @@
 #include "CardFactory.h"
 using namespace std;
 
-class DiscardPile {
+class DiscardPile : vector<Card*>{
     public:
-        DiscardPile(istream& in, const CardFactory* cf); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
+        DiscardPile(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
         DiscardPile& operator+=(Card*); // discards the card to the pile.
         Card* pickUp(); // returns and removes the top card from the discard pile.
         Card* top(); // returns but does not remove the top card from the discard pile
         void print(ostream& out); // to insert all the cards in the DiscardPile to an std::ostream.
-    private:
-        vector<Card*> dPile; // vector to hold the discarded cards
+    protected:
+        int size;
 };
+
+DiscardPile::DiscardPile(istream& in, const CardFactory* cf) //constructor for when the game is resumed from file
+{
+
+}
+
+DiscardPile& DiscardPile::operator+=(Card *c)
+{
+    this->push_back(c);
+    return *this; 
+}
 
 Card* DiscardPile::pickUp()
 {
-    return(dPile.pop_back()); //It is used to pop or remove elements from a vector from the back
+    Card* back = this->back();
+    this->pop_back();
+    return(back); //It is used to pop or remove elements from a vector from the back
 }
 
 Card* DiscardPile::top()
 {
-    return(dPile.back()); //Returns a reference to the last element in the vector
+    return(this->back()); //Returns a reference to the last element in the vector
 }
