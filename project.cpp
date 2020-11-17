@@ -11,15 +11,31 @@
 using namespace std;
 int main() {
 	
-	//test code
-
+	/*
+	//test code	
 	Chili c;
 	cout << c << endl;
 	cout << c.getCardsPerCoin(2) << endl;
-	
 	Blue b;
 	cout << b << endl;
 	cout << b.getCardsPerCoin(3) << endl;
+	*/
+
+	string p1Name; //Player1 Name
+	cout<<"Enter Player1 Name: ";
+	cin >> p1Name;
+	string p2Name; //Player2 Name
+	cout<<"Enter Player2 Name: ";
+	cin >> p2Name;
+
+	Player p1 = Player(p1Name);
+	Player p2 = Player(p2Name);
+
+	Deck deck = CardFactory().getDeck();
+
+	Table game = Table(p1, p2, deck);
+
+
 
 	return 1;
 }
