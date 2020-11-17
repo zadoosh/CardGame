@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <assert.h> 
@@ -12,7 +13,11 @@ public:
     virtual void print(ostream& out) const{
         out<< name.front();
     }
-    
+    Card(const Card& t) = delete;
+    Card& operator = (const Card& c) = delete;
+    Card() {
+
+    }
 protected:
     void setName(const string set) {
         name = set;
