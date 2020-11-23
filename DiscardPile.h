@@ -6,18 +6,19 @@ using namespace std;
 
 class DiscardPile : vector<Card*>{
     public:
+        DiscardPile();
         DiscardPile(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
         DiscardPile& operator+=(Card*); // discards the card to the pile.
         Card* pickUp(); // returns and removes the top card from the discard pile.
         Card* top(); // returns but does not remove the top card from the discard pile
-        void print(ostream& out); // to insert all the cards in the DiscardPile to an std::ostream.
+        void print(ostream&); // to insert all the cards in the DiscardPile to an std::ostream.
     protected:
         int size;
 };
 
 DiscardPile::DiscardPile(istream& in, const CardFactory* cf) //constructor for when the game is resumed from file
 {
-    
+
 }
 
 DiscardPile& DiscardPile::operator+=(Card *c)
@@ -36,4 +37,13 @@ Card* DiscardPile::pickUp()
 Card* DiscardPile::top()
 {
     return(this->back()); //Returns a reference to the last element in the vector
+}
+
+void DiscardPile::print(ostream& out)
+{
+    out << "DiscardPile" << endl;
+    for(Card *c : *this)
+    {
+        c->print(out);
+    }
 }

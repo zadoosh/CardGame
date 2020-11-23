@@ -1,6 +1,13 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "istream": "cpp"
+        "istream": "cpp",
+        "vector": "cpp",
+        "iosfwd": "cpp",
+        "ios": "cpp",
+        "memory": "cpp",
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "string": "cpp"
     }
 }

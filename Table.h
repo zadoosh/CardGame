@@ -3,15 +3,18 @@
 #include "CardFactory.h"
 #include "Player.h"
 #include "Deck.h"
+#include "DiscardPile.h"
+#include "TradeArea.h"
 
 using namespace std;
 
 class Table {
     public:
-        Table(); //Default constructor
+        Table(Player, Player, Deck); //Default constructor
         Table(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Table from file. 
         bool win(string&); // returns true when a player has won. 
         void printHand(bool); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
+        friend ostream & operator << (ostream &);
     protected:
         Player p1;
         Player p2;
@@ -51,3 +54,9 @@ void Table::printHand(bool b)
 
     }
 }
+
+ostream & operator << (ostream &out, Player p1, Player p2, Deck deck, DiscardPile dp, TradeArea td)
+{
+    out << "Player1 " << p1.print(out) << endl;
+    out << "Player2 " << p2.print(out) << endl;
+} 

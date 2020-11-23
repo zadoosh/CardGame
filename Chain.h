@@ -12,12 +12,12 @@ class Chain {
         Chain<T>& operator+=(Card*); //adds a card to the Chain. If the run-time type does not match the template type of the chain and exception of type IllegalType needs to be raised.
         int sell(); //counts the number cards in the current chain and returns the number coins according to the function Card::getCardsPerCoin. 
     protected:
-        vector<Card> cardChain;
+        vector<Card*> cardChain;
 };
 
-Chain::Chain(Card* firstCard) //default constructor 
+Chain::Chain(Card *firstCard) //default constructor 
 {
-    cardChain.push_back(*firstCard);
+    cardChain.push_back(firstCard);
 }
 
 Chain::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
@@ -25,13 +25,13 @@ Chain::Chain(istream& in, const CardFactory *cf) //constructor for when the game
 
 }
 
+Chain<T>& Chain::operator+=(Card *c)
+{
 
+}
 
 // counts the number of cards in the current chain and returns the number of coins according to the function Card::getCardsPerCoin
 int Chain::sell()
 {
-    for(Card c : cardChain)
-    {
-
-    }
+    
 }
