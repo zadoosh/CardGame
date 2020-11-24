@@ -21,6 +21,9 @@ int main() {
 	cout << b.getCardsPerCoin(3) << endl;
 	*/
 
+	//SETUP 
+	//Input the names of 2 players. Initialize the Deck and draw 5 cards for the Hand of each Player; or
+	//Load paused game from file.
 	string p1Name; //Player1 Name
 	cout<<"Enter Player1 Name: ";
 	cin >> p1Name;
@@ -35,7 +38,12 @@ int main() {
 
 	Table game = Table(p1, p2, deck);
 
-	
+	//The game keeps going until there are no cards left
+	while(deck.isEmpty == false)
+	{
+		
+	}
+
 
 	return 1;
 }
