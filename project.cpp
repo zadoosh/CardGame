@@ -35,7 +35,7 @@ int main() {
 
 	Table game = Table(p1, p2, deck);
 
-
+	
 
 	return 1;
 }

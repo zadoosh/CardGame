@@ -18,7 +18,7 @@ class DiscardPile : vector<Card*>{
 
 DiscardPile::DiscardPile(istream& in, const CardFactory* cf) //constructor for when the game is resumed from file
 {
-
+    
 }
 
 DiscardPile& DiscardPile::operator+=(Card *c)

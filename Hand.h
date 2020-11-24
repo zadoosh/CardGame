@@ -13,6 +13,7 @@ class Hand {
         Card* play(); // returns and removes the top card from the player's hand
         Card* top(); // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
+        friend ostream & operator << (ostream & out, Hand h);
     protected:
         queue<Card*> hand;
         int handSize;
@@ -65,4 +66,25 @@ Card* Hand::operator[](int index)
         }
     }
     return(cardToReturn);
+}
+
+void Hand::print(ostream& out, Hand h)
+{
+    queue<Card*> handCopy;
+    list<Card*> listHand;
+    handSize = h.hand.size();
+    for(int a = 0; a < handSize; a++)
+    {
+        listHand.push_back(h.hand.front());
+        hand.pop();
+    }
+    out << "Hand ";
+    for(int a = 0; a < handSize; a++)
+    {
+        listHand.front()->print(out);
+        handCopy.push(listHand.front());
+        listHand.pop_front();
+    }
+    out << endl;
+    h.hand = handCopy;
 }
