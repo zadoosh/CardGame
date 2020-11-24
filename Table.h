@@ -57,6 +57,9 @@ void Table::printHand(bool b)
 
 ostream & operator << (ostream &out, Player p1, Player p2, Deck deck, DiscardPile dp, TradeArea td)
 {
-    out << "Player1 " << p1.print(out) << endl;
-    out << "Player2 " << p2.print(out) << endl;
+    out << "Deck " << deck.print(out) << endl;
+    out << "DiscardPile " << dp.print(out) << endl;
+    out << "TradeArea " << td.print(out) << endl;
+    out << "Player1 " << p1.print(out) << endl; //Print the name, coins, chains 
+    out << "Player2 " << p2.print(out) << endl; //Print the name, coins, chains 
 } 

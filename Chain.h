@@ -5,7 +5,8 @@
 
 using namespace std;
 
-class Chain {
+template <Card *T>
+class Chain{
     public:
         Chain(Card* firstCard); // default constructor
         Chain(istream& in, const CardFactory*); //is a constructor which accepts an istream and reconstructs the chain from file when a game is resumed. 
@@ -15,23 +16,27 @@ class Chain {
         vector<Card*> cardChain;
 };
 
-Chain::Chain(Card *firstCard) //default constructor 
+template <Card *T>
+Chain<T>::Chain(Card *firstCard) //default constructor 
 {
     cardChain.push_back(firstCard);
 }
 
-Chain::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
+template <Card *T>
+Chain<T>::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
 {
 
 }
 
-Chain<T>& Chain::operator+=(Card *c)
+template <Card *T>
+Chain<T>& Chain<T>::operator+=(Card *c)
 {
-
+    cardChain.push_back(c);
 }
 
 // counts the number of cards in the current chain and returns the number of coins according to the function Card::getCardsPerCoin
-int Chain::sell()
+template <Card *T>
+int Chain<T>::sell()
 {
     
 }
