@@ -15,7 +15,40 @@ class Chain{
     protected:
         vector<Card*> cardChain;
 };
+/*
+class Chain<*Blue>: public Chain 
+{
 
+}
+class Chain<*Chili>: public Chain 
+{
+
+}
+class Chain<*Stink>: public Chain 
+{
+
+}
+class Chain<*Green>: public Chain 
+{
+
+}
+class Chain<*soy>: public Chain 
+{
+
+}
+class Chain<*black>: public Chain 
+{
+
+}
+class Chain<*Red>: public Chain 
+{
+
+}
+class Chain<*garden>: public Chain 
+{
+
+}
+*/
 template <Card *T>
 Chain<T>::Chain(Card *firstCard) //default constructor 
 {
@@ -25,7 +58,7 @@ Chain<T>::Chain(Card *firstCard) //default constructor
 template <Card *T>
 Chain<T>::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
 {
-
+    
 }
 
 template <Card *T>
@@ -38,5 +71,10 @@ Chain<T>& Chain<T>::operator+=(Card *c)
 template <Card *T>
 int Chain<T>::sell()
 {
-    
+    int coinsInChain = 0;
+    for(Card* element : cardChain)
+    {
+        //coinsInChain += element->getCardsPerCoin(); //for some reason it says in Card class this function should return number of cards needed for the coins passed as an arguement
+    }
+    return coinsInChain;
 }

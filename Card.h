@@ -6,7 +6,7 @@ using namespace std;
 class Card {
 public:
     
-    virtual int getCardsPerCoin(const int coins) = 0;
+    virtual int getCoinsPerCard(const int cards);
     virtual string getName() const{
         return name;
     }
@@ -33,18 +33,18 @@ ostream& operator<<(std::ostream& os, Card& c)
 
 class Blue : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins>=1);
-        switch (coins) {
-            case 1:
-                return 4;
-            case 2:
-                return 6;
-            case 3:
-                return 8;
+        assert(cards >= 4 && cards<=10);
+        switch (cards) {
             case 4:
-                return 10;
+                return 1;
+            case 6:
+                return 2;
+            case 8:
+                return 3;
+            case 10:
+                return 4;
         }
 
     }
@@ -55,18 +55,18 @@ public:
 
 class Chili : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 3;
-        case 2:
-            return 6;
+        assert(cards >= 3 && cards <= 9);
+        switch (cards) {
         case 3:
-            return 8;
-        case 4:
-            return 9;
+            return 1;
+        case 6:
+            return 2;
+        case 8:
+            return 3;
+        case 10:
+            return 4;
         }
 
     }
@@ -77,18 +77,18 @@ public:
 
 class Stink : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 3;
-        case 2:
-            return 5;
+        assert(cards <= 8 && cards >= 3);
+        switch (cards) {
         case 3:
-            return 7;
-        case 4:
-            return 8;
+            return 1;
+        case 5:
+            return 2;
+        case 7:
+            return 3;
+        case 8:
+            return 4;
         }
 
     }
@@ -99,18 +99,18 @@ public:
 
 class Green : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 3;
-        case 2:
-            return 5;
+        assert(cards <= 7 && cards >= 3);
+        switch (cards) {
         case 3:
-            return 6;
-        case 4:
-            return 7;
+            return 1;
+        case 5:
+            return 2;
+        case 6:
+            return 3;
+        case 7:
+            return 4;
         }
 
     }
@@ -121,18 +121,18 @@ public:
 
 class soy : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 2;
+        assert(cards <= 7 && cards >= 2);
+        switch (cards) {
         case 2:
-            return 4;
-        case 3:
-            return 6;
+            return 1;
         case 4:
-            return 7;
+            return 2;
+        case 6:
+            return 3;
+        case 7:
+            return 4;
         }
 
     }
@@ -143,18 +143,18 @@ public:
 
 class black : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 2;
+        assert(cards <= 6 && cards >= 2);
+        switch (cards) {
         case 2:
-            return 4;
-        case 3:
-            return 5;
+            return 1;
         case 4:
-            return 6;
+            return 2;
+        case 5:
+            return 3;
+        case 6:
+            return 4;
         }
 
     }
@@ -165,18 +165,18 @@ public:
 
 class Red : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 2;
+        assert(cards <= 5 && cards >= 2);
+        switch (cards) {
         case 2:
-            return 3;
+            return 1;
         case 3:
+            return 2;
+        case 4;
+            return 3;
+        case 5:
             return 4;
-        case 4:
-            return 5;
         }
 
     }
@@ -187,18 +187,14 @@ public:
 
 class garden : public Card {
 public:
-    int getCardsPerCoin(const int coins)
+    int getCoinsPerCard(const int cards)
     {
-        assert(coins <= 4 && coins >= 1);
-        switch (coins) {
-        case 1:
-            return 0;
+        assert(cards <= 3 && cards >= 2);
+        switch (cards) {
         case 2:
             return 2;
         case 3:
             return 3;
-        case 4:
-            return 0;
         }
 
     }
