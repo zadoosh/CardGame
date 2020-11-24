@@ -44,4 +44,5 @@ private:
 	int coins;
 	bool third = false;
 	Chain* chains[3];
+	Hand hand;
 };
