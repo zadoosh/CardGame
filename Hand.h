@@ -22,12 +22,12 @@ class Hand {
         queue<Card*> hand;
         int handSize;
 };
-
+/*
 Hand::Hand(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
 {
 
 }
-
+*/
 Hand& Hand::operator+=(Card *c)
 {
     hand.push(c);

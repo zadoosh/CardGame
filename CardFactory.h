@@ -56,7 +56,7 @@ private:
 	}
 	CardFactory& operator = (const CardFactory&);
 
-	static Deck* cards;
+	Deck* cards;
 };
 CardFactory* CardFactory:: factory = NULL;
 

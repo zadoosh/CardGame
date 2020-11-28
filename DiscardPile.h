@@ -7,7 +7,7 @@ using namespace std;
 
 class DiscardPile : vector<Card*>{
     public:
-        DiscardPile() {};
+        DiscardPile() { size = 0; };
         DiscardPile(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
         DiscardPile& operator+=(Card*); // discards the card to the pile.
         Card* pickUp(); // returns and removes the top card from the discard pile.
@@ -16,12 +16,12 @@ class DiscardPile : vector<Card*>{
     protected:
         int size;
 };
-
+/*
 DiscardPile::DiscardPile(istream& in, const CardFactory* cf) //constructor for when the game is resumed from file
 {
     
 }
-
+*/
 DiscardPile& DiscardPile::operator+=(Card *c)
 {
     this->push_back(c);

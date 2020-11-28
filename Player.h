@@ -37,16 +37,18 @@ public:
 	}
 	Player(string n) {
 		name = n;
+		coins = 0;
 	}
 	Player() {
-
+		coins = 0;
+		name = "";
 	}
 private:
 	Player& operator+=(int n) {
 		coins += n;
 	}
 	string name;
-	int coins;
+	int coins=0;
 	bool third = false;
 	//Chain<Card>* chains[3];
 	Hand hand;
