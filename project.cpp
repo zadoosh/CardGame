@@ -33,17 +33,18 @@ int main() {
 
 	Player p1 = Player(p1Name);
 	Player p2 = Player(p2Name);
-
-	Deck deck = CardFactory().getDeck();
+	
+	CardFactory* cardFactory = CardFactory::getFactory();
+	Deck deck = (*cardFactory).getDeck();
 
 	Table game = Table(p1, p2, deck);
 
 	//The game keeps going until there are no cards left
-	while(deck.isEmpty == false)
+	while(deck.isEmpty() == false)
 	{
 		
 	}
 
-
+	
 	return 1;
 }

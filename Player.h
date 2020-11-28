@@ -23,9 +23,11 @@ public:
 	int getNumChains() {
 		
 	}
-	Chain& operator[](int i) {
+	/*
+	Chain<Card>& operator[](int i) {
 		return *chains[i];
 	}
+	*/
 	void buyThirdChain() {
 		if (coins < 3) {
 			throw("NotEnoughCoins");
@@ -33,16 +35,19 @@ public:
 		third = true;
 		coins = coins - 2;
 	}
-private:
 	Player(string n) {
 		name = n;
 	}
+	Player() {
+
+	}
+private:
 	Player& operator+=(int n) {
 		coins += n;
 	}
 	string name;
 	int coins;
 	bool third = false;
-	Chain* chains[3];
+	//Chain<Card>* chains[3];
 	Hand hand;
 };

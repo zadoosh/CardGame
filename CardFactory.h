@@ -3,6 +3,9 @@
 #include "Deck.h"
 #include "Card.h"
 #include <algorithm>
+#include <random>  
+#include <chrono>
+
 using namespace std;
 class CardFactory {
 public:
@@ -47,7 +50,9 @@ private:
 			Card* temp = new garden();
 			cards->push_back(temp);
 		}
-		shuffle(cards->begin(), cards->end(), cards);
+		unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+		shuffle(cards->begin(), cards->end(), default_random_engine(seed));
 	}
 	CardFactory& operator = (const CardFactory&);
 

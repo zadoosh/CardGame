@@ -5,6 +5,7 @@
 
 using namespace std;
 class TradeArea {
+
 public:
 	bool const legal(Card* c) {
 		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {

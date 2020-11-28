@@ -4,9 +4,12 @@
 #include <assert.h> 
 using namespace std;
 class Card {
+
 public:
     
-    virtual int getCoinsPerCard(const int cards);
+    virtual int getCoinsPerCard(const int) {
+        return 0;
+    }
     virtual string getName() const{
         return name;
     }
@@ -173,7 +176,7 @@ public:
             return 1;
         case 3:
             return 2;
-        case 4;
+        case 4:
             return 3;
         case 5:
             return 4;

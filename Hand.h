@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "CardFactory.h"
 #include "Card.h"
@@ -8,6 +9,9 @@ using namespace std;
 
 class Hand {
     public:
+        Hand() {
+            handSize = 0;
+        }
         Hand(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Hand from file
         Hand& operator+=(Card*); // adds the card to the rear of the hand
         Card* play(); // returns and removes the top card from the player's hand
@@ -46,7 +50,7 @@ Card* Hand::operator[](int index)
 {
     list<Card*> listHand;
     handSize = hand.size();
-    Card* cardToReturn; 
+    Card* cardToReturn=NULL; 
     for(int a = 0; a < handSize; a++)
     {
         listHand.push_back(hand.front());
@@ -67,19 +71,19 @@ Card* Hand::operator[](int index)
     }
     return(cardToReturn);
 }
-
-void Hand::print(ostream& out, Hand h)
+/*
+ostream & operator << (ostream& out, Hand h)
 {
     queue<Card*> handCopy;
     list<Card*> listHand;
-    handSize = h.hand.size();
-    for(int a = 0; a < handSize; a++)
+    h.handSize = h.hand.size();
+    for(int a = 0; a < h.handSize; a++)
     {
         listHand.push_back(h.hand.front());
-        hand.pop();
+        h.hand.pop();
     }
     out << "Hand ";
-    for(int a = 0; a < handSize; a++)
+    for(int a = 0; a < h.handSize; a++)
     {
         listHand.front()->print(out);
         handCopy.push(listHand.front());
@@ -88,3 +92,4 @@ void Hand::print(ostream& out, Hand h)
     out << endl;
     h.hand = handCopy;
 }
+*/

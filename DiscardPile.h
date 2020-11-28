@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include "Card.h"
@@ -6,7 +7,7 @@ using namespace std;
 
 class DiscardPile : vector<Card*>{
     public:
-        DiscardPile();
+        DiscardPile() {};
         DiscardPile(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
         DiscardPile& operator+=(Card*); // discards the card to the pile.
         Card* pickUp(); // returns and removes the top card from the discard pile.
