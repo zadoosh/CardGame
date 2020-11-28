@@ -16,7 +16,9 @@ class Table {
         bool win(string&); // returns true when a player has won. 
         void printHand(bool); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
        // friend ostream & operator << (ostream& out, Table t);
-    protected:
+        void printTable(Player);
+        int tradeAreaSize();
+    private:
         Player p1;
         Player p2;
         Deck deck;
@@ -54,6 +56,24 @@ void Table::printHand(bool b)
     {
 
     }
+}
+void Table::printTable(Player p) {
+    cout << "\nDiscard Pile: ";
+    if (discardPile.top() == NULL) {
+        cout << "None";
+    }
+    else {
+        discardPile.top()->print(cout);
+    }
+    cout << endl;
+    cout << "\nTrading Area: ";
+    tradeArea.print();
+    cout << endl;
+    cout << "\nYour chains: " << endl;
+    p.printChains();
+}
+int Table::tradeAreaSize() {
+    return tradeArea.numCards();
 }
 /*
 ostream & operator << (ostream &out, Table t)

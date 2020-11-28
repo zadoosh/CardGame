@@ -37,7 +37,12 @@ Card* DiscardPile::pickUp()
 
 Card* DiscardPile::top()
 {
-    return(this->back()); //Returns a reference to the last element in the vector
+    if (size == 0) {
+        return NULL;
+    }
+    else {
+        return(this->back()); //Returns a reference to the last element in the vector
+    }
 }
 
 void DiscardPile::print(ostream& out)

@@ -39,10 +39,30 @@ int main() {
 
 	Table game = Table(p1, p2, deck);
 
+	for (int i = 0; i < 5; i++) {
+		p1.addCard(deck.draw());
+		p2.addCard(deck.draw());
+	}
+	
 	//The game keeps going until there are no cards left
 	
 	while(deck.isEmpty() == false)
 	{
+		//Player 1
+		game.printTable(p1);
+		p1.addCard(deck.draw());
+		if (game.tradeAreaSize() != 0) {
+			//add bean cards from trade area to chains or discard them
+		}
+		Card* play = p1.getHand()->play();
+		bool played = p1.addToChain(play);
+		//cout << "test";
+		if (!played) {
+			int sell;
+			cout << "Which chain would you like to sell (1-" << p1.getNumChains() << ": " ;
+			cin >> sell;
+			p1.sellChainAndAdd(sell, play);
+		}
 		
 	}
 	

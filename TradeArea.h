@@ -27,6 +27,12 @@ public:
 	int const numCards() {
 		return cards.size();
 	}
+	void print() {
+		for (Card* c : cards)
+		{
+			c->print(cout);
+		}
+	}
 private:
 	TradeArea& operator+=(Card* c) {
 		cards.push_back(c);
