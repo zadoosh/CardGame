@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cctype>
+#include <cstring>
+#include <cstdio>
 #include "Card.h"
 #include "CardFactory.h"
 #include "Chain.h"
@@ -49,23 +52,74 @@ int main() {
 	while(deck.isEmpty() == false)
 	{
 		//Player 1
-		game.printTable(p1);
-		p1.addCard(deck.draw());
-		if (game.tradeAreaSize() != 0) {
-			//add bean cards from trade area to chains or discard them
+		game.printTable(p1); //Display table
+		p1.addCard(deck.draw()); //Player draws top card from Deck
+		if (game.tradeAreaSize() != 0) //If TradeArea is not empty
+		{ 
+			//Add bean cards from the TradeArea to chains or discard them.
 		}
-		Card* play = p1.getHand()->play();
-		bool played = p1.addToChain(play);
-		//cout << "test";
-		if (!played) {
-			int sell;
-			cout << "Which chain would you like to sell (1-" << p1.getNumChains() << ": " ;
-			cin >> sell;
-			p1.sellChainAndAdd(sell, play);
+		bool step2 = true;
+		char repeat;
+		char yes = "y";
+		do {
+			Card* play = p1.getHand()->play(); //Play topmost card from Hand
+			bool played = p1.addToChain(play); //If chain is ended, cards for chain are removed and player receives coin(s).
+			//cout << "test";
+			if (!played) { // if the card could not be added to chain, tie and sell an old chain and create a new chain
+				int sell;
+				cout << "Which chain would you like to sell (1-" << p1.getNumChains() << ": " ;
+				cin >> sell;
+				p1.sellChainAndAdd(sell, play); //If chain is ended, cards for chain are removed and player receives coin(s).
+			}
+			cout << "Would you like to repeat this step? (Y/N) " ;
+			cin >> repeat;
+			repeat = tolower(repeat);
+			if(strcmp(repeat,yes)!=0) //it returns 0 if they are equal
+			{
+				repeat = false;
+			}
+		//If player decides to
+			 //Play the now topmost card from Hand. 
+		} while(step2); //player is allowed to repeat step 2
+		
+		//If player decides to
+                //Show the player's full hand and player selects an arbitrary card
+                //Discard the arbitrary card from the player's hand and place it on the discard pile.
+		char discardCard;
+		cout << "Would you like to display your hand and discard an arbitrary card? (Y/N) ";
+		cin >> discardCard;
+		discardCard = tolower(discardCard);
+		if(strcmp(discardCard,yes))
+		{
+			
 		}
+            
+            //Draw three cards from the deck and place cards in the trade area
+            //while top card of discard pile matches an existing card in the trade area
+                //draw the top-most card from the discard pile and place it in the trade area
+            //end
+            //for all cards in the trade area 
+                //if player wants to chain the card 
+                    //chain the card.
+                //else
+                    //card remains in trade area for the next player.
+            //end
+            //Draw two cards from Deck and add the cards to the player's hand (at the back).
+        //end
+    //end
+
 		
 	}
 	
 	
 	return 1;
 }
+
+//FILE OUTPUT FORMAT
+/*
+	TradeArea:
+	DiscardPile:
+	Deck:
+	Player1: name, coins, Chains, hand
+	Player2: name, coins, Chains, hand
+*/

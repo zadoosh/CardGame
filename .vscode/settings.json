@@ -9,6 +9,8 @@
         "ostream": "cpp",
         "streambuf": "cpp",
         "string": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "queue": "cpp",
+        "filesystem": "cpp"
     }
 }
