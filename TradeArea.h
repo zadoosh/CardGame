@@ -33,7 +33,7 @@ public:
 			c->print(cout);
 		}
 	}
-private:
+//private:
 	TradeArea& operator+=(Card* c) { 
 		cards.push_back(c);
 		return *this;

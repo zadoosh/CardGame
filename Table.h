@@ -85,7 +85,7 @@ Deck* Table::getDeck()
 
 TradeArea& Table::getTradeArea() 
 {
-    return *tradeArea;
+    return tradeArea;
 }
 
 /*

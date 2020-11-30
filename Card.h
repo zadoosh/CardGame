@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h> 
 #include <iostream>
 #include <string>
 #include <assert.h> 
@@ -39,6 +40,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards >= 4 && cards<=20);
+        if (cards >= 4 && cards <= 5) return 1;
+        else if (cards >= 6 && cards <= 7) return 2;
+        else if (cards >= 8 && cards <= 9) return 3;
+        else if (cards >= 10) return 4;
+        else return 0;
+        /*
         switch (cards) {
             case 4 ... 5:
                 return 1;
@@ -51,6 +58,7 @@ public:
             default:
                 return 0;
         }
+        */
     }
     Blue() {
         setName("Blue");
@@ -62,6 +70,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards >= 3 && cards <= 18);
+        if (cards >= 3 && cards <= 5) return 1;
+        else if (cards >= 6 && cards <= 7) return 2;
+        else if (cards >= 8 && cards <= 9) return 3;
+        else if (cards >= 10) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 3 ... 5:
             return 1;
@@ -74,6 +88,7 @@ public:
         default:
             return 0;
         }
+        */
     }
     Chili() {
         setName("Chili");
@@ -85,6 +100,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 16 && cards >= 3);
+        if (cards >= 3 && cards <= 4) return 1;
+        else if (cards >= 5 && cards <= 6) return 2;
+        else if (cards ==7) return 3;
+        else if (cards >= 8) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 3 ... 4:
             return 1;
@@ -97,6 +118,7 @@ public:
         default: 
             return 0;
         }
+        */
     }
     Stink() {
         setName("Stink");
@@ -108,6 +130,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 14 && cards >= 3);
+        if (cards >= 3 && cards <= 4) return 1;
+        else if (cards ==5) return 2;
+        else if (cards ==6) return 3;
+        else if (cards >= 7) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 3 ... 4:
             return 1;
@@ -120,6 +148,7 @@ public:
         default:
             return 0;
         }
+        */
     }
     Green() {
         setName("Green");
@@ -131,6 +160,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 12 && cards >= 2);
+        if (cards >= 2 && cards <= 3) return 1;
+        else if (cards >= 4 && cards <= 5) return 2;
+        else if (cards ==6) return 3;
+        else if (cards >= 7) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 2 ... 3:
             return 1;
@@ -143,6 +178,7 @@ public:
         default:
             return 0;
         }
+        */
     }
     soy() {
         setName("soy");
@@ -154,6 +190,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 10 && cards >= 2);
+        if (cards >= 2 && cards <= 3) return 1;
+        else if (cards == 4 ) return 2;
+        else if (cards ==5) return 3;
+        else if (cards >= 6) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 2 ... 3:
             return 1;
@@ -166,6 +208,7 @@ public:
         default:
             return 0;
         }
+        */
     }
     black() {
         setName("black");
@@ -177,6 +220,12 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 8 && cards >= 2);
+        if (cards ==2) return 1;
+        else if (cards ==3) return 2;
+        else if (cards ==4) return 3;
+        else if (cards >= 5) return 4;
+        else return 0;
+        /*
         switch (cards) {
         case 2:
             return 1;
@@ -189,6 +238,7 @@ public:
         default:
             return 0;
         }
+        */
     }
     Red() {
         setName("Red");
@@ -200,6 +250,10 @@ public:
     int getCoinsPerCard(const int cards)
     {
         assert(cards <= 6 && cards >= 2);
+        if (cards ==2) return 2;
+        else if (cards >= 3) return 3;
+        else return 0;
+        /*
         switch (cards) {
         case 2:
             return 2;
@@ -208,7 +262,7 @@ public:
         default:
             return 0;
         }
-
+        */
     }
     garden() {
         setName("garden");
