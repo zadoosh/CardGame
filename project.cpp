@@ -59,8 +59,8 @@ int main() {
 			//Add bean cards from the TradeArea to chains or discard them.
 		}
 		bool step2 = true;
-		char repeat;
-		char yes = "y";
+		string repeat;
+		char const *yes = "y";
 		do {
 			Card* play = p1.getHand()->play(); //Play topmost card from Hand
 			bool played = p1.addToChain(play); //If chain is ended, cards for chain are removed and player receives coin(s).
@@ -73,10 +73,10 @@ int main() {
 			}
 			cout << "Would you like to repeat this step? (Y/N) " ;
 			cin >> repeat;
-			repeat = tolower(repeat);
-			if(strcmp(repeat,yes)!=0) //it returns 0 if they are equal
+			repeat = tolower(repeat[0]);
+			if(strcmp(repeat.c_str(),yes)!=0) //it returns 0 if they are equal
 			{
-				repeat = false;
+				step2 = false;
 			}
 		//If player decides to
 			 //Play the now topmost card from Hand. 
@@ -85,19 +85,27 @@ int main() {
 		//If player decides to
                 //Show the player's full hand and player selects an arbitrary card
                 //Discard the arbitrary card from the player's hand and place it on the discard pile.
-		char discardCard;
+		string discardCard;
 		cout << "Would you like to display your hand and discard an arbitrary card? (Y/N) ";
 		cin >> discardCard;
-		discardCard = tolower(discardCard);
-		if(strcmp(discardCard,yes))
+		discardCard = tolower(discardCard[0]);
+		if(strcmp(discardCard.c_str(),yes))
 		{
-			
+			p1.getHand()->printHand();
 		}
-            
-            //Draw three cards from the deck and place cards in the trade area
-            //while top card of discard pile matches an existing card in the trade area
-                //draw the top-most card from the discard pile and place it in the trade area
-            //end
+
+        //Draw three cards from the deck and place cards in the trade area
+		for(int x = 0; x < 3; x++)
+		{
+			game.getTradeArea() += (game.getDeck()->draw());
+		}
+
+        //while top card of discard pile matches an existing card in the trade area
+            //draw the top-most card from the discard pile and place it in the trade area
+        //end
+		
+
+
             //for all cards in the trade area 
                 //if player wants to chain the card 
                     //chain the card.

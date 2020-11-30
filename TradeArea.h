@@ -34,8 +34,9 @@ public:
 		}
 	}
 private:
-	TradeArea& operator+=(Card* c) {
+	TradeArea& operator+=(Card* c) { 
 		cards.push_back(c);
+		return *this;
 	}
 	std::list<Card*> cards;
 };

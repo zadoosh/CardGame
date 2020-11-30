@@ -18,6 +18,8 @@ class Table {
        // friend ostream & operator << (ostream& out, Table t);
         void printTable(Player);
         int tradeAreaSize();
+        Deck* getDeck();
+        TradeArea& getTradeArea();
     private:
         Player p1;
         Player p2;
@@ -75,6 +77,17 @@ void Table::printTable(Player p) {
 int Table::tradeAreaSize() {
     return tradeArea.numCards();
 }
+
+Deck* Table::getDeck() 
+{
+    return &deck;
+}
+
+TradeArea& Table::getTradeArea() 
+{
+    return *tradeArea;
+}
+
 /*
 ostream & operator << (ostream &out, Table t)
 {

@@ -18,6 +18,7 @@ class Hand {
         Card* top(); // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
         friend ostream & operator << (ostream & out, Hand h);
+        void printHand(); // prints the player's hand
     protected:
         queue<Card*> hand;
         int handSize;
@@ -71,6 +72,19 @@ Card* Hand::operator[](int index)
     }
     return(cardToReturn);
 }
+
+void Hand::printHand() // used to print hand so user can select which card to remove from hand
+{
+     queue<Card*> handToIterate = hand;
+     Card *tempCard;
+     while(!handToIterate.empty())
+     {
+         tempCard = handToIterate.front();
+         cout << tempCard->getName() << "\t";
+         handToIterate.pop();
+     }
+}
+
 /*
 ostream & operator << (ostream& out, Hand h)
 {
