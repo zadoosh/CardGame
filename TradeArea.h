@@ -24,19 +24,42 @@ public:
 			}
 		}
 	}
+	void discard(DiscardPile p) {
+		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
+			Card* temp = (*itr);
+			cards.erase(itr);
+			p+=temp;
+		}
+	}
 	int const numCards() {
 		return cards.size();
 	}
 	void print() {
+		int count = 0;
 		for (Card* c : cards)
 		{
+			cout << "Card #" << count << ": ";
 			c->print(cout);
+			cout << "\t";
+			count++;
 		}
 	}
-//private:
+
 	TradeArea& operator+=(Card* c) { 
 		cards.push_back(c);
 		return *this;
 	}
-	std::list<Card*> cards;
+	string cardNameAt(int pos) {
+		int count = 0;
+		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
+			Card* temp = (*itr);
+			if (count == pos) {
+				return temp->getName();
+			}
+			count++;
+		}
+	}
+private:
+	std::list<Card*> cards = {};
+
 };

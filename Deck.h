@@ -16,7 +16,7 @@ public:
 //Need a function like this for the main, we only keep playing if there are cards left in the deck
 bool Deck::isEmpty()
 {
-	if(size() > 0)
+	if(!(this == NULL)|| size() > 0 )
 	{
 		return false;
 	}

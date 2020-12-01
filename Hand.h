@@ -19,7 +19,7 @@ class Hand {
         Card* operator[](int); // returns and removes the Card at a given index.
         friend ostream & operator << (ostream & out, Hand h);
         void printHand(); // prints the player's hand
-    protected:
+    private:
         queue<Card*> hand;
         int handSize;
 };
@@ -77,11 +77,13 @@ void Hand::printHand() // used to print hand so user can select which card to re
 {
      queue<Card*> handToIterate = hand;
      Card *tempCard;
+     int count = 0;
      while(!handToIterate.empty())
      {
          tempCard = handToIterate.front();
-         cout << tempCard->getName() << "\t";
+         cout <<"card#"<<count<<": "<< tempCard->getName() << "\t";
          handToIterate.pop();
+         count++;
      }
 }
 

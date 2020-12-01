@@ -26,16 +26,26 @@ public:
 	}
 	int getNumChains() {
 		int count = 0;
-		for (Chain<Card>* c : chains) {
-			if (!(c->isEmpty())) {
+		for (Chain<Card> c : chains) {
+			if (!((&c)->isEmpty())) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
+	void printHand(ostream &o,bool b)
+	{
+		if (b == false) //if false, print top card of player's hand
+		{
+			hand.top()->print(o);
+		}
+		if (b == true) // if true, print entire hand
+		{
+			hand.printHand();
+		}
+	}
 	Chain<Card>& operator[](int i) {
-		return *chains[i];
+		return chains[i];
 	}
 
 	void buyThirdChain() {
@@ -56,11 +66,12 @@ public:
 	void printChains() {
 		for (int i = 0; i < getMaxNumChains(); i++) {
 			cout << "Chain" << (i + 1) << ": " ;
-			if (chains[i] == NULL) {
+			if (chains[i].isEmpty()) {
 				cout << "Empty" << endl;
 			}
 			else {
-				chains[i]->print();
+				(&chains[i])->print();
+				cout << "\n";
 			}
 		}
 	}
@@ -69,24 +80,25 @@ public:
 	}
 	bool addToChain(Card* c) {
 		for (int i = 0; i < getMaxNumChains();i++) { // trying to add card to existing chain of that card
-			if (!(chains[i]->isEmpty())) {
-				if (typeid(chains[i]) == typeid(c)) {
-					*chains[i] += c;
+			if (!((&chains[i])->isEmpty())) {
+				Chain<Card> temp = chains[i];
+				if (temp.printTypeName()== c->getName()) {
+					chains[i] += c;
 					return true;
 				}
 			}
 		}
 		for (int i = 0; i < getMaxNumChains(); i++) { // if it reaches here than it was unsuccessful in adding to a chain, so look for an empty spot and create a chain if there is space for a new chain to be created
-			if ((chains[i]->isEmpty())) {
-				*chains[i] += c;
+			if (((&chains[i])->isEmpty())) {
+				chains[i] += c;
 				return true;
 			}
 		}
 		return false; // returns false if unable to add card to a chain or create a new chain since chain slots are full
 	}
 	int sellChainAndAdd(int pos, Card* c) {
-		int coins = (chains[pos]->sell());
-		chains[pos] = &Chain<Card>(c);
+		int coins = ((&chains[pos])->sell());
+		chains[pos] = Chain<Card>(c);
 		return coins;
 	}
 private:
@@ -96,6 +108,6 @@ private:
 	string name;
 	int coins=0;
 	bool third = false;
-	Chain<Card>* chains[3];
+	Chain<Card> chains[3] ;
 	Hand hand;
 };

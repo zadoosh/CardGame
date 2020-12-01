@@ -14,12 +14,13 @@ class Table {
         Table(Player, Player, Deck); //Default constructor
         Table(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Table from file. 
         bool win(string&); // returns true when a player has won. 
-        void printHand(bool); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
+        void printHand(bool, Player p); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
        // friend ostream & operator << (ostream& out, Table t);
         void printTable(Player);
         int tradeAreaSize();
         Deck* getDeck();
         TradeArea& getTradeArea();
+        DiscardPile& getDiscardPile();
     private:
         Player p1;
         Player p2;
@@ -48,16 +49,9 @@ bool Table::win(string& s)
 
 }
 */
-void Table::printHand(bool b)
+void Table::printHand(bool b, Player p)
 {
-    if(b == false) //if false, print top card of player's hand
-    {
-        
-    }
-    if(b == true) // if true, print entire hand
-    {
-
-    }
+    p.printHand(cout,b);
 }
 void Table::printTable(Player p) {
     cout << "\nDiscard Pile: ";
@@ -86,6 +80,11 @@ Deck* Table::getDeck()
 TradeArea& Table::getTradeArea() 
 {
     return tradeArea;
+}
+
+DiscardPile& Table::getDiscardPile()
+{
+    return discardPile;
 }
 
 /*

@@ -3,102 +3,80 @@
 #include "CardFactory.h"
 #include "Card.h"
 #include <vector>
+#include <exception>
+#include <memory>
+#include <functional>
 
 using namespace std;
 
-template <class T>
+template <class Card>
 class Chain{
    
     public:
-        Chain(Card* firstCard); // default constructor
+        Chain(Card *firstCard); // default constructor
         Chain(istream& in, const CardFactory*); //is a constructor which accepts an istream and reconstructs the chain from file when a game is resumed. 
         void operator+=(Card*); //adds a card to the Chain. If the run-time type does not match the template type of the chain and exception of type IllegalType needs to be raised.
         int sell(); //counts the number cards in the current chain and returns the number coins according to the function Card::getCardsPerCoin. 
-        friend ostream & operator << (ostream &, Chain<T>);
+        friend ostream & operator << (ostream &, Chain<Card>);
         bool isEmpty();
         void print();
+        string printTypeName();
+        Chain() {};
     private:
-        vector<T*> cardChain ;
-        
+        vector<Card*> cardChain ; 
 };
-/*
-class Chain<*Blue>: public Chain 
-{
 
-}
-class Chain<*Chili>: public Chain 
+template <class Card>
+Chain<Card>::Chain(Card *firstCard) //default constructor 
 {
-
-}
-class Chain<*Stink>: public Chain 
-{
-
-}
-class Chain<*Green>: public Chain 
-{
-
-}
-class Chain<*soy>: public Chain 
-{
-
-}
-class Chain<*black>: public Chain 
-{
-
-}
-class Chain<*Red>: public Chain 
-{
-
-}
-class Chain<*garden>: public Chain 
-{
-
-}
-*/
-template <class T>
-Chain<T>::Chain(Card *firstCard) //default constructor 
-{
+   
     cardChain.push_back(firstCard);
  
 }
+template <class Card>
+string Chain<Card>::printTypeName() {
+    return cardChain[0]->getName();
+}
 
-template <class T>
-Chain<T>::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
+template <class Card>
+Chain<Card>::Chain(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
 {
     
 }
 
-template <class T>
-void Chain<T>::operator+=(Card *c)
+template <class Card>
+void Chain<Card>::operator+=(Card *c)
 {
     cardChain.push_back(c);
     
 }
 
 // counts the number of cards in the current chain and returns the number of coins according to the function Card::getCardsPerCoin
-template <class T>
-int Chain<T>::sell()
+template <class Card>
+int Chain<Card>::sell()
 {
     return cardChain[0]->getCoinsPerCard(cardChain.size());
 }
-
-template <class T>
-ostream & operator << (ostream &out, Chain<T> chain)
+/*
+template <class Card>
+ostream & operator << (ostream &out, Chain<Card> chain)
 {
     out << string(T) << "\t" << (string(T).at(0))*(chain.size()) << endl;
 } 
-template <class T>
-bool Chain<T>::isEmpty() {
-        return cardChain.size();
+*/
+
+template <class Card>
+bool Chain<Card>::isEmpty() {
+    return(cardChain.empty());
 }
 
-template <class T>
-void Chain<T>::print() {
+template <class Card>
+void Chain<Card>::print() {
     if (isEmpty()) {
         cout << "Empty";
     }
     else {
-        for (T* c : cardChain) {
+        for (Card* c : cardChain) {
             c->print(cout);
         }
     }
