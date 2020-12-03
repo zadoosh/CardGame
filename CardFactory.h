@@ -10,7 +10,7 @@ using namespace std;
 class CardFactory {
 public:
 	static CardFactory* getFactory();
-	Deck getDeck() {
+	Deck& getDeck() {
 		return *cards;
 	}
 private:

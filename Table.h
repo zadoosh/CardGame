@@ -11,26 +11,26 @@ using namespace std;
 
 class Table {
     public:
-        Table(Player, Player, Deck); //Default constructor
+        Table(Player*, Player*, Deck*); //Default constructor
         Table(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Table from file. 
         bool win(string&); // returns true when a player has won. 
         void printHand(bool, Player p); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
        // friend ostream & operator << (ostream& out, Table t);
         void printTable(Player);
         int tradeAreaSize();
-        Deck* getDeck();
-        TradeArea& getTradeArea();
-        DiscardPile& getDiscardPile();
+        Deck& getDeck();
+        TradeArea* getTradeArea();
+        DiscardPile* getDiscardPile();
     private:
-        Player p1;
-        Player p2;
-        Deck deck;
+        Player* p1;
+        Player* p2;
+        Deck* deck;
         DiscardPile discardPile;
         TradeArea tradeArea;
 };
 
 //initializes game
-Table::Table(Player one, Player two, Deck cards)
+Table::Table(Player* one, Player* two, Deck* cards)
 {
     p1 = one;
     p2 = two;
@@ -43,19 +43,39 @@ Table::Table(istream& in, const CardFactory *cf) //constructor for when the game
 {
     
 }
-/*
+
 bool Table::win(string& s)
 {
-
+    if (deck->size() != 0) {
+        return false;
+    }
+    else {
+        if (s == p1->getName()) {
+            if (p1->getNumCoins() > p2->getNumCoins()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            if (p2->getNumCoins() > p1->getNumCoins()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
 }
-*/
+
 void Table::printHand(bool b, Player p)
 {
     p.printHand(cout,b);
 }
 void Table::printTable(Player p) {
     cout << "\nDiscard Pile: ";
-    if (discardPile.top() == NULL) {
+    if (discardPile.top()==NULL) {
         cout << "None";
     }
     else {
@@ -72,19 +92,19 @@ int Table::tradeAreaSize() {
     return tradeArea.numCards();
 }
 
-Deck* Table::getDeck() 
+Deck& Table::getDeck() 
 {
-    return &deck;
+    return *deck;
 }
 
-TradeArea& Table::getTradeArea() 
+TradeArea* Table::getTradeArea() 
 {
-    return tradeArea;
+    return &tradeArea;
 }
 
-DiscardPile& Table::getDiscardPile()
+DiscardPile* Table::getDiscardPile()
 {
-    return discardPile;
+    return &discardPile;
 }
 
 /*

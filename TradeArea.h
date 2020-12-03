@@ -24,12 +24,12 @@ public:
 			}
 		}
 	}
-	void discard(DiscardPile p) {
-		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
-			Card* temp = (*itr);
-			cards.erase(itr);
+	void discard(DiscardPile &p) {
+		for (Card* c: cards) {
+			Card* temp = c;
 			p+=temp;
 		}
+		cards = {};
 	}
 	int const numCards() {
 		return cards.size();

@@ -25,6 +25,7 @@ DiscardPile::DiscardPile(istream& in, const CardFactory* cf) //constructor for w
 DiscardPile& DiscardPile::operator+=(Card *c)
 {
     this->push_back(c);
+    size++;
     return *this; 
 }
 
@@ -32,6 +33,7 @@ Card* DiscardPile::pickUp()
 {
     Card* back = this->back();
     this->pop_back();
+    size--;
     return(back); //It is used to pop or remove elements from a vector from the back
 }
 

@@ -7,7 +7,10 @@
 using namespace std;
 class Player {
 public:
-	string const getName() {
+	void addCoins(int c) {
+		coins += c;
+	}
+	string& getName() {
 		return name;
 	}
 	void addCard(Card *c) {
@@ -37,7 +40,12 @@ public:
 	{
 		if (b == false) //if false, print top card of player's hand
 		{
-			hand.top()->print(o);
+			if (hand.top() == NULL) {
+				o << "Empty";
+			}
+			else {
+				hand.top()->print(o);
+			}
 		}
 		if (b == true) // if true, print entire hand
 		{
@@ -74,6 +82,7 @@ public:
 				cout << "\n";
 			}
 		}
+		cout << "Coins: " << coins << endl;
 	}
 	Hand* getHand() {
 		return &hand;

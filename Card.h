@@ -8,7 +8,7 @@ class Card {
 
 public:
     
-    virtual int getCoinsPerCard(const int) {
+    virtual int getCoinsPerCard(int) {
         return 0;
     }
     virtual string getName() const{
@@ -37,9 +37,9 @@ ostream& operator<<(std::ostream& os, Card& c)
 
 class Blue : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards >= 4 && cards<=20);
+       // assert(cards >= 4 && cards<=20);
         if (cards >= 4 && cards <= 5) return 1;
         else if (cards >= 6 && cards <= 7) return 2;
         else if (cards >= 8 && cards <= 9) return 3;
@@ -67,9 +67,9 @@ public:
 
 class Chili : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards >= 3 && cards <= 18);
+        //assert(cards >= 3 && cards <= 18);
         if (cards >= 3 && cards <= 5) return 1;
         else if (cards >= 6 && cards <= 7) return 2;
         else if (cards >= 8 && cards <= 9) return 3;
@@ -97,9 +97,9 @@ public:
 
 class Stink : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 16 && cards >= 3);
+       // assert(cards <= 16 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
         else if (cards >= 5 && cards <= 6) return 2;
         else if (cards ==7) return 3;
@@ -127,9 +127,9 @@ public:
 
 class Green : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 14 && cards >= 3);
+       // assert(cards <= 14 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
         else if (cards ==5) return 2;
         else if (cards ==6) return 3;
@@ -157,9 +157,9 @@ public:
 
 class soy : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 12 && cards >= 2);
+      //  assert(cards <= 12 && cards >= 2);
         if (cards >= 2 && cards <= 3) return 1;
         else if (cards >= 4 && cards <= 5) return 2;
         else if (cards ==6) return 3;
@@ -187,9 +187,9 @@ public:
 
 class black : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 10 && cards >= 2);
+       // assert(cards <= 10 && cards >= 2);
         if (cards >= 2 && cards <= 3) return 1;
         else if (cards == 4 ) return 2;
         else if (cards ==5) return 3;
@@ -217,9 +217,9 @@ public:
 
 class Red : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 8 && cards >= 2);
+       // assert(cards <= 8 && cards >= 2);
         if (cards ==2) return 1;
         else if (cards ==3) return 2;
         else if (cards ==4) return 3;
@@ -247,9 +247,9 @@ public:
 
 class garden : public Card {
 public:
-    int getCoinsPerCard(const int cards)
+    int getCoinsPerCard(int cards)
     {
-        assert(cards <= 6 && cards >= 2);
+      //  assert(cards <= 6 && cards >= 2);
         if (cards ==2) return 2;
         else if (cards >= 3) return 3;
         else return 0;

@@ -55,7 +55,7 @@ void Chain<Card>::operator+=(Card *c)
 template <class Card>
 int Chain<Card>::sell()
 {
-    return cardChain[0]->getCoinsPerCard(cardChain.size());
+    return (cardChain[0]->getCoinsPerCard(cardChain.size()));
 }
 /*
 template <class Card>

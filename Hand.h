@@ -44,6 +44,9 @@ Card* Hand::play()
 
 Card* Hand::top()
 {
+    if (hand.size()== 0) {
+        return NULL;
+    }
     return(hand.front());
 }
 
