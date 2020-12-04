@@ -12,7 +12,7 @@ class Hand {
         Hand() {
             handSize = 0;
         }
-        Hand(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Hand from file
+        Hand(istream& in); // is a constructor which accepts an istream and reconstruct the Hand from file
         Hand& operator+=(Card*); // adds the card to the rear of the hand
         Card* play(); // returns and removes the top card from the player's hand
         Card* top(); // returns but does not remove the top card from the player's hand.
@@ -23,12 +23,58 @@ class Hand {
         queue<Card*> hand;
         int handSize;
 };
-/*
-Hand::Hand(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
-{
 
+Hand::Hand(istream& in) //constructor for when the game is resumed from file
+{
+    int i = 0;
+    while (!in.eof()) {
+        string temp;
+        in >> temp;
+        if (temp == "Blue") {
+            Card* blue = new Blue();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "Chili") {
+            Card* blue = new Chili();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "Stink") {
+            Card* blue = new Stink();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "Green") {
+            Card* blue = new Green();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "soy") {
+            Card* blue = new soy();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "black") {
+            Card* blue = new black();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "Red") {
+            Card* blue = new Red();
+            hand.push(blue);
+            i++;
+        }
+        if (temp == "garden") {
+            Card* blue = new garden();
+            hand.push(blue);
+            i++;
+        }
+        
+    }
+    handSize = i;
 }
-*/
+
 Hand& Hand::operator+=(Card *c)
 {
     hand.push(c);
@@ -90,7 +136,7 @@ void Hand::printHand() // used to print hand so user can select which card to re
      }
 }
 
-/*
+
 ostream & operator << (ostream& out, Hand h)
 {
     queue<Card*> handCopy;
@@ -101,14 +147,14 @@ ostream & operator << (ostream& out, Hand h)
         listHand.push_back(h.hand.front());
         h.hand.pop();
     }
-    out << "Hand ";
+    out << "cards = ";
     for(int a = 0; a < h.handSize; a++)
     {
-        listHand.front()->print(out);
+        out <<listHand.front()->getName() <<" ";
         handCopy.push(listHand.front());
         listHand.pop_front();
     }
     out << endl;
     h.hand = handCopy;
+    return out;
 }
-*/

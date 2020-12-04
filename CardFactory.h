@@ -54,7 +54,6 @@ private:
 
 		shuffle(cards->begin(), cards->end(), default_random_engine(seed));
 	}
-	CardFactory& operator = (const CardFactory&);
 
 	Deck* cards;
 };

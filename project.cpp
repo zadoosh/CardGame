@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <istream>
 #include <limits>
 #include <cctype>
 #include <cstring>
@@ -13,6 +14,7 @@
 #include "Player.h"
 #include "Table.h"
 #include "TradeArea.h"
+#include "ini.h"
 using namespace std;
 int main() {
 	
@@ -29,31 +31,131 @@ int main() {
 	//SETUP 
 	//Input the names of 2 players. Initialize the Deck and draw 5 cards for the Hand of each Player; or
 	//Load paused game from file.
+	//initialize variables
 	string p1Name; //Player1 Name
-	cout<<"Enter Player1 Name: ";
-	cin >> p1Name;
 	string p2Name; //Player2 Name
-	cout<<"Enter Player2 Name: ";
-	cin >> p2Name;
-	char const* yes = "y";
-	Player p1 = Player(p1Name);
-	Player p2 = Player(p2Name);
+	Player p1; 
+	Player p2; 
 	Player* current = &p1;
-	bool player1 = true;
+	bool player = true;
 	CardFactory* cardFactory = CardFactory::getFactory();
 	Deck& deck = (*cardFactory).getDeck();
-
+	bool first = true;
+	bool second = false;
 	Table game = Table(&p1, &p2, &deck);
+	char const* yes = "y";
+	string load;
+	//Load game from file
+	cout << "Would you like to Load game from file? (Y/N): ";
+	cin >> load;
+	if (strcmp(load.c_str(), yes) == 0) {
+		mINI::INIFile file("saveFile.ini");
+		// next, create a structure that will hold data
+		mINI::INIStructure ini;
+		// now we can read the file
+		file.read(ini);
+		// read a value
+		//Player 1 input streams
+		stringstream player1;
+		stringstream p1Chain0;
+		stringstream p1Chain1;
+		stringstream p1Chain2;
+		stringstream p1Hand;
+		player1<< ini["player1"]["name"]<<endl;
+		player1<< ini["player1"]["coins"] << endl;
+		player1<< ini["player1"]["third"]<<endl;
+		p1Chain0 << ini["player1"]["chain0"] << endl;
+		p1Chain1 << ini["player1"]["chain1"] << endl;
+		if (ini["player1"].has("chain2")) {
+			p1Chain2 << ini["player1"]["chain2"] << endl;
+		}
+		p1Hand << ini["player1"]["cards"] << endl;
+		
+		//player 2 input streams
+		stringstream player2;
+		stringstream p2Chain0;
+		stringstream p2Chain1;
+		stringstream p2Chain2;
+		stringstream p2Hand;
+		player2 << ini["player2"]["name"] << endl;
+		player2 << ini["player2"]["coins"] << endl;
+		player2 << ini["player2"]["third"] << endl;
+		p2Chain0 << ini["player2"]["chain0"] << endl;
+		p2Chain1 << ini["player2"]["chain1"] << endl;
+		if (ini["player2"].has("chain2")) {
+			p1Chain2 << ini["player2"]["chain2"] << endl;
+		}
+		p2Hand << ini["player2"]["cards"] << endl;
 
-	for (int i = 0; i < 5; i++) {
-		p1.addCard(deck.draw());
-		p2.addCard(deck.draw());
+		//game input streams
+		stringstream cardDeck;
+		cardDeck << ini["Deck"]["deck"];
+		stringstream trade;
+		trade << ini["TradeArea"]["tradearea"];
+		stringstream dpile;
+		dpile << ini["DiscardPile"]["discardpile"];
+		string currentPlayer= ini["current"]["name"];
+
+		//create game objects
+		deck = Deck(cardDeck);
+		//create player1
+		Chain<Card> player1Chain0 = Chain<Card>(p1Chain0);
+		Chain<Card> player1Chain1 = Chain<Card>(p1Chain1);
+		Chain<Card> player1Chain2 = Chain<Card>(p1Chain2);
+		Hand player1Hand = Hand(p1Hand);
+		p1 = Player(player1, player1Chain0, player1Chain1, player1Chain2, player1Hand);
+		//create player2
+		Chain<Card> player2Chain0 = Chain<Card>(p2Chain0);
+		Chain<Card> player2Chain1 = Chain<Card>(p2Chain1);
+		Chain<Card> player2Chain2 = Chain<Card>(p2Chain2);
+		Hand player2Hand = Hand(p2Hand);
+		p2 = Player(player2, player2Chain0, player2Chain1, player2Chain2, player2Hand);
+		//create table
+		DiscardPile dp = DiscardPile(dpile);
+		TradeArea tp = TradeArea(trade);
+		game = Table(&p1,&p2,&deck,&dp,&tp);
+		if (currentPlayer == p1.getName()) {
+			current = &p1;
+		}
+		else {
+			current = &p2;
+			player = false;
+			first = false;
+		}
 	}
+	else {
+		cout << "Enter Player1 Name: ";
+		cin >> p1Name;
+		cout << "Enter Player2 Name: ";
+		cin >> p2Name;
+		p1= Player(p1Name);
+		p2 = Player(p2Name);
+		for (int i = 0; i < 5; i++) {
+			p1.addCard(deck.draw());
+			p2.addCard(deck.draw());
+		}
+	}
+	
 	
 	//The game keeps going until there are no cards left
 	int num;
 	while(deck.isEmpty() == false)
 	{
+		if (!first&&second) {
+			string save;
+			cout << "Would you like to Save and exit game? (Y/N): " << endl;
+			cin >> save;
+			if (strcmp(save.c_str(), yes) == 0) {
+				ofstream savefile;
+				savefile.open("saveFile.ini");
+				savefile << game;
+				savefile << "[current]\n" << "name = " << (*current).getName() << endl;
+				savefile.close();
+				cout << "Game saved!";
+				break;
+			}
+		}
+
 		//Player 1
 		game.printTable(*current); //Display table
 		
@@ -157,8 +259,9 @@ int main() {
         //Draw three cards from the deck and place cards in the trade area
 		for(int x = 0; x < 3; x++)
 		{
-			*game.getTradeArea() += ((game).getDeck().draw());
-			
+			if (game.getDeck().size() > 0) {
+				*game.getTradeArea() += ((game).getDeck().draw());
+			}
 		}
 		cout << "Drawing three cards from deck for trade area." << endl;
         //while top card of discard pile matches an existing card in the trade area
@@ -217,19 +320,26 @@ int main() {
         //end
     //end
 
-		if (player1) {
+		if (player) {
 			current = &p2;
-			player1 = false;
+			player = false;
 		}
 		else {
 			current = &p1;
-			player1 = true;
+			player = true;
 		}
 
 		cout << "###################################################" << endl;
 		cout << "\t\t"<< (*current).getName() << "'s Turn."<<endl;
 		cout << "###################################################" << endl;
+		if (first) {
+			first = false;
+		}
+		else {
+			second = true;
+		}
 	}
+	
 	return 1;
 }
 

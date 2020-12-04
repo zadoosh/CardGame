@@ -7,6 +7,7 @@
 using namespace std;
 class Player {
 public:
+	Player(istream& in, Chain<Card>& c0, Chain<Card>& c1, Chain<Card>& c2, Hand& h);
 	void addCoins(int c) {
 		coins += c;
 	}
@@ -110,6 +111,10 @@ public:
 		chains[pos] = Chain<Card>(c);
 		return coins;
 	}
+	friend ostream& operator << (ostream& out, DiscardPile& d);
+	Chain<Card>& getChainAt(int i) {
+		return chains[i];
+	}
 private:
 	Player& operator+=(int n) {
 		coins += n;
@@ -120,3 +125,38 @@ private:
 	Chain<Card> chains[3] ;
 	Hand hand;
 };
+
+ostream& operator << (ostream& out, Player& p)
+{
+	out << "name = " << p.getName() << endl;
+	out << "coins = " << p.getNumCoins() << endl;
+	out << "third = " << p.getNumChains() << endl;
+	
+	out << "chain0"<<" = " << p.getChainAt(0) << endl;
+	out << "chain1" << " = " << p.getChainAt(1) << endl;
+	if (p.getNumChains() == 3) {
+		out << "chain2" << " = " << p.getChainAt(2) << endl;
+	}
+	
+	out << *p.getHand() << endl;
+	
+	return out;
+}
+
+Player::Player(istream& in, Chain<Card>& c0, Chain<Card>& c1, Chain<Card>& c2, Hand& h) //constructor for when the game is resumed from file
+{
+	in >> name;
+	in >> coins;
+	int t;
+	in >> t;
+	if (t == 3) {
+		third = true;
+	}
+	else {
+		third = false;
+	}
+	chains[0] = c0;
+	chains[1] = c1;
+	chains[2] = c2;
+	hand = h;
+}
