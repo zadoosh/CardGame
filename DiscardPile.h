@@ -13,61 +13,64 @@ class DiscardPile : vector<Card*>{
         Card* pickUp(); // returns and removes the top card from the discard pile.
         Card* top(); // returns but does not remove the top card from the discard pile
         void print(ostream&); // to insert all the cards in the DiscardPile to an std::ostream.
-        friend ostream& operator << (ostream& out, DiscardPile& d);
+        friend ostream& operator << (ostream& out, DiscardPile& d); // the insertion operator (friend) to insert only the top card of the discard pile to an std::ostream
     protected:
-        int size;
+        int size; // keep track of discard pile size
 };
 
-DiscardPile::DiscardPile(istream& in) //constructor for when the game is resumed from file
+//constructor for when the game is resumed from file
+DiscardPile::DiscardPile(istream& in) 
 {
-	int i = 0;
+	int i = 0; // counter to keep track of discard pile size
 	while (!in.eof()) {
 		string temp;
 		in >> temp;
-		if (temp == "Blue") {
-			Card* blue = new Blue();
-			push_back(blue);
-			i++;
+		if (temp == "Blue") { // checks if string in istream is Blue 
+			Card* tempCard = new Blue(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "Chili") {
-			Card* blue = new Chili();
-			push_back(blue);
-			i++;
+		if (temp == "Chili") { // checks if string in istream is Chili 
+			Card* tempCard = new Chili(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "Stink") {
-			Card* blue = new Stink();
-			push_back(blue);
-			i++;
+		if (temp == "Stink") { // checks if string in istream is Stink 
+			Card* tempCard = new Stink(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "Green") {
-			Card* blue = new Green();
-			push_back(blue);
-			i++;
+		if (temp == "Green") { // checks if string in istream is Green 
+			Card* tempCard = new Green(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "soy") {
-			Card* blue = new soy();
-			push_back(blue);
-			i++;
+		if (temp == "soy") { // checks if string in istream is soy 
+			Card* tempCard = new soy(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "black") {
-			Card* blue = new black();
-			push_back(blue);
-			i++;
+		if (temp == "black") { // checks if string in istream is black 
+			Card* tempCard = new black(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "Red") {
-			Card* blue = new Red();
-			push_back(blue);
-			i++;
+		if (temp == "Red") { // checks if string in istream is Red 
+			Card* tempCard = new Red(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
-		if (temp == "garden") {
-			Card* blue = new garden();
-			push_back(blue);
-			i++;
+		if (temp == "garden") { // checks if string in istream is garden 
+			Card* tempCard = new garden(); // creates temp card to add to discard pile
+			push_back(tempCard); // adds card to discard pile
+			i++; // increments counter to keep track of discard pile size
 		}
 		
 	}
-	size = i;
+	size = i;  // sets discard pile size after adding Cards to discard pile 
 }
+
+// discards the card to the pile
 DiscardPile& DiscardPile::operator+=(Card *c)
 {
     this->push_back(c);
@@ -75,6 +78,7 @@ DiscardPile& DiscardPile::operator+=(Card *c)
     return *this; 
 }
 
+// returns and removes the top card from the discard pile
 Card* DiscardPile::pickUp()
 {
     Card* back = this->back();
@@ -83,6 +87,7 @@ Card* DiscardPile::pickUp()
     return(back); //It is used to pop or remove elements from a vector from the back
 }
 
+// returns but does not remove the top card from the discard pile
 Card* DiscardPile::top()
 {
     if (size == 0) {
@@ -93,6 +98,7 @@ Card* DiscardPile::top()
     }
 }
 
+// to insert all the cards in the DiscardPile to an std::ostream
 void DiscardPile::print(ostream& out)
 {
     out << "DiscardPile" << endl;
@@ -102,6 +108,7 @@ void DiscardPile::print(ostream& out)
     }
 }
 
+// the insertion operator to insert only the top card of the discard pile to an std::ostream
 ostream& operator << (ostream& out, DiscardPile& d)
 {
     out << "discardpile=";

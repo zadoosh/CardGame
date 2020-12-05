@@ -17,34 +17,31 @@
 #include "ini.h"
 using namespace std;
 int main() {
-	
-	/*
-	//test code	
-	Chili c;
-	cout << c << endl;
-	cout << c.getCardsPerCoin(2) << endl;
-	Blue b;
-	cout << b << endl;
-	cout << b.getCardsPerCoin(3) << endl;
-	*/
 
 	//SETUP 
-	//Input the names of 2 players. Initialize the Deck and draw 5 cards for the Hand of each Player; or
-	//Load paused game from file.
+
 	//initialize variables
 	string p1Name; //Player1 Name
 	string p2Name; //Player2 Name
-	Player p1; 
-	Player p2; 
-	Player* current = &p1;
+	Player p1; // Player1
+	Player p2; // Player2
+
+	// To keep track of the current player	
+	Player* current = &p1; 
 	bool player = true;
-	CardFactory* cardFactory = CardFactory::getFactory();
-	Deck& deck = (*cardFactory).getDeck();
 	bool first = true;
 	bool second = false;
+
+	// Initialize game components
+	CardFactory* cardFactory = CardFactory::getFactory();
+	Deck& deck = (*cardFactory).getDeck();
 	Table game = Table(&p1, &p2, &deck);
+
 	char const* yes = "y";
 	string load;
+
+	//Input the names of 2 players. Initialize the Deck and draw 5 cards for the Hand of each Player; or
+	//Load paused game from file.
 	//Load game from file
 	cout << "Would you like to Load game from file? (Y/N): ";
 	cin >> load;
@@ -55,6 +52,7 @@ int main() {
 		// now we can read the file
 		file.read(ini);
 		// read a value
+
 		//Player 1 input streams
 		stringstream player1;
 		stringstream p1Chain0;
@@ -71,7 +69,7 @@ int main() {
 		}
 		p1Hand << ini["player1"]["cards"] << endl;
 		
-		//player 2 input streams
+		//Player 2 input streams
 		stringstream player2;
 		stringstream p2Chain0;
 		stringstream p2Chain1;
@@ -87,7 +85,7 @@ int main() {
 		}
 		p2Hand << ini["player2"]["cards"] << endl;
 
-		//game input streams
+		//Game input streams
 		stringstream cardDeck;
 		cardDeck << ini["Deck"]["deck"];
 		stringstream trade;
@@ -96,24 +94,27 @@ int main() {
 		dpile << ini["DiscardPile"]["discardpile"];
 		string currentPlayer= ini["current"]["name"];
 
-		//create game objects
-		deck = Deck(cardDeck);
-		//create player1
+		
+		//Create player1
 		Chain<Card> player1Chain0 = Chain<Card>(p1Chain0);
 		Chain<Card> player1Chain1 = Chain<Card>(p1Chain1);
 		Chain<Card> player1Chain2 = Chain<Card>(p1Chain2);
 		Hand player1Hand = Hand(p1Hand);
 		p1 = Player(player1, player1Chain0, player1Chain1, player1Chain2, player1Hand);
-		//create player2
+		//Create player2
 		Chain<Card> player2Chain0 = Chain<Card>(p2Chain0);
 		Chain<Card> player2Chain1 = Chain<Card>(p2Chain1);
 		Chain<Card> player2Chain2 = Chain<Card>(p2Chain2);
 		Hand player2Hand = Hand(p2Hand);
 		p2 = Player(player2, player2Chain0, player2Chain1, player2Chain2, player2Hand);
-		//create table
+
+		//Create game objects (table)
+		deck = Deck(cardDeck);
 		DiscardPile dp = DiscardPile(dpile);
 		TradeArea tp = TradeArea(trade);
 		game = Table(&p1,&p2,&deck,&dp,&tp);
+
+		//Set the current player from the file
 		if (currentPlayer == p1.getName()) {
 			current = &p1;
 		}
@@ -123,19 +124,21 @@ int main() {
 			first = false;
 		}
 	}
+	// If user wants to start new game instead
 	else {
 		cout << "Enter Player1 Name: ";
 		cin >> p1Name;
 		cout << "Enter Player2 Name: ";
 		cin >> p2Name;
+		//Create Player objects with names entered
 		p1= Player(p1Name);
 		p2 = Player(p2Name);
+		//Draw 5 cards for each player from the deck and place in hand
 		for (int i = 0; i < 5; i++) {
 			p1.addCard(deck.draw());
 			p2.addCard(deck.draw());
 		}
 	}
-	
 	
 	//The game keeps going until there are no cards left
 	int num;
@@ -256,6 +259,7 @@ int main() {
 			*game.getDiscardPile() += toRemove;
 		}
 		
+		cout << "Drawing three cards from deck for trade area." << endl;
         //Draw three cards from the deck and place cards in the trade area
 		for(int x = 0; x < 3; x++)
 		{
@@ -263,15 +267,14 @@ int main() {
 				*game.getTradeArea() += ((game).getDeck().draw());
 			}
 		}
-		cout << "Drawing three cards from deck for trade area." << endl;
+		
+		cout << "If the top-most card matches a card in the trade area, it will be placed there now" << endl;
         //while top card of discard pile matches an existing card in the trade area
             //draw the top-most card from the discard pile and place it in the trade area
         //end
-
 		while (game.getDiscardPile()->top()!=NULL&&game.getTradeArea()->legal(game.getDiscardPile()->top())) {
 			*game.getTradeArea() += game.getDiscardPile()->pickUp();
 		}
-		
             //for all cards in the trade area 
                 //if player wants to chain the card 
                     //chain the card.
@@ -290,7 +293,6 @@ int main() {
 				if (num >= 0) {
 					Card* temp = game.getTradeArea()->trade(game.getTradeArea()->cardNameAt(num));
 					bool played = (*current).addToChain(temp); //If chain is ended, cards for chain are removed and player receives coin(s).
-			//cout << "test";
 					if (!played) { // if the card could not be added to chain, tie and sell an old chain and create a new chain
 						int sell;
 						(*current).printChains();
@@ -306,19 +308,20 @@ int main() {
 				}
 			} while (num >= 0 && game.tradeAreaSize() != 0);
 		}
-            //Draw two cards from Deck and add the cards to the player's hand (at the back).
+            
+		//Check winning condition before drawing cards from deck
 		if (game.win((*current).getName())) {
 			cout << "Congrats! " << (*current).getName() << " WON" << endl;
 			break;
 		}
+
+		//Draw two cards if possible from Deck and add the cards to the player's hand (at the back).
 		else if (game.getDeck().size()>0) {
 			(*current).addCard(game.getDeck().draw());
 			if (game.getDeck().size() > 0) {
 				(*current).addCard(game.getDeck().draw());
 			}
 		}
-        //end
-    //end
 
 		if (player) {
 			current = &p2;
@@ -329,9 +332,11 @@ int main() {
 			player = true;
 		}
 
+		// TO let users know who's turn it is 
 		cout << "###################################################" << endl;
 		cout << "\t\t"<< (*current).getName() << "'s Turn."<<endl;
 		cout << "###################################################" << endl;
+
 		if (first) {
 			first = false;
 		}
@@ -342,12 +347,3 @@ int main() {
 	
 	return 1;
 }
-
-//FILE OUTPUT FORMAT
-/*
-	TradeArea:
-	DiscardPile:
-	Deck:
-	Player1: name, coins, Chains, hand
-	Player2: name, coins, Chains, hand
-*/

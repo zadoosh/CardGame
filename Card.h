@@ -7,39 +7,53 @@ using namespace std;
 class Card {
 
 public:
-    
-    virtual int getCoinsPerCard(int) {
+
+    // Will implement in the derived classes the table for how many cards are necessary to receive the corresponding number of coins
+    virtual int getCoinsPerCard(int) { 
         return 0;
     }
+
+    // Returns the full name of the card (e.g., Blue).
     virtual string getName() const{
         return name;
     }
+
+    // Inserts the first character for the card into the output stream supplied as argument
     virtual void print(ostream& out) const{
         out<< name.front();
     }
-    Card(const Card& t) = delete;
-    Card& operator = (const Card& c) = delete;
-    Card() {
 
-    }
+    // Deletion of card
+    Card(const Card& t) = delete;
+
+    Card& operator = (const Card& c) = delete;
+    
+    // Default constructor
+    Card() {}
 protected:
+
+    // Sets the name of the card
     void setName(const string set) {
         name = set;
     }
+
+    // Each card will hold a name attribute
     string name;
 };
 
+//  Global stream insertion operator for printing any objects
 ostream& operator<<(std::ostream& os, Card& c)
 {
     c.print(os);
     return os;
 }
 
+// Blue card class
 class Blue : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-       // assert(cards >= 4 && cards<=20);
+        // assert(cards >= 4 && cards<=20);
         if (cards >= 4 && cards <= 5) return 1;
         else if (cards >= 6 && cards <= 7) return 2;
         else if (cards >= 8 && cards <= 9) return 3;
@@ -65,11 +79,12 @@ public:
     }
 };
 
+// Chili card class
 class Chili : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-        //assert(cards >= 3 && cards <= 18);
+        // assert(cards >= 3 && cards <= 18);
         if (cards >= 3 && cards <= 5) return 1;
         else if (cards >= 6 && cards <= 7) return 2;
         else if (cards >= 8 && cards <= 9) return 3;
@@ -95,11 +110,12 @@ public:
     }
 };
 
+// Stink card class
 class Stink : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-       // assert(cards <= 16 && cards >= 3);
+        // assert(cards <= 16 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
         else if (cards >= 5 && cards <= 6) return 2;
         else if (cards ==7) return 3;
@@ -125,11 +141,12 @@ public:
     }
 };
 
+// Green card class
 class Green : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-       // assert(cards <= 14 && cards >= 3);
+        // assert(cards <= 14 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
         else if (cards ==5) return 2;
         else if (cards ==6) return 3;
@@ -155,6 +172,7 @@ public:
     }
 };
 
+// soy card class
 class soy : public Card {
 public:
     int getCoinsPerCard(int cards)
@@ -185,11 +203,12 @@ public:
     }
 };
 
+// black card class
 class black : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-       // assert(cards <= 10 && cards >= 2);
+        // assert(cards <= 10 && cards >= 2);
         if (cards >= 2 && cards <= 3) return 1;
         else if (cards == 4 ) return 2;
         else if (cards ==5) return 3;
@@ -215,11 +234,12 @@ public:
     }
 };
 
+// Red card class 
 class Red : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-       // assert(cards <= 8 && cards >= 2);
+        // assert(cards <= 8 && cards >= 2);
         if (cards ==2) return 1;
         else if (cards ==3) return 2;
         else if (cards ==4) return 3;
@@ -245,11 +265,12 @@ public:
     }
 };
 
+// garden card class
 class garden : public Card {
 public:
     int getCoinsPerCard(int cards)
     {
-      //  assert(cards <= 6 && cards >= 2);
+        // assert(cards <= 6 && cards >= 2);
         if (cards ==2) return 2;
         else if (cards >= 3) return 3;
         else return 0;

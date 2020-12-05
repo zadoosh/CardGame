@@ -12,18 +12,17 @@ using namespace std;
 class Table {
     public:
         Table(Player*, Player*, Deck*); //Default constructor
-        //Table(istream& in, const CardFactory*); // is a constructor which accepts an istream and reconstruct the Table from file. 
-        Table(Player*, Player*, Deck*, DiscardPile*, TradeArea*);
+        Table(Player*, Player*, Deck*, DiscardPile*, TradeArea*); // is a constructor which accepts an istream and reconstruct the Table from file. 
         bool win(string&); // returns true when a player has won. 
         void printHand(bool, Player p); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
-        friend ostream &operator << (ostream& out, Table& t);
-        void printTable(Player);
-        int tradeAreaSize();
-        Deck& getDeck();
-        TradeArea* getTradeArea();
-        DiscardPile* getDiscardPile();
-        Player& getPlayer1();
-        Player& getPlayer2();
+        friend ostream &operator << (ostream& out, Table& t); // the insertion operator (friend) to print a Table to an std::ostream
+        void printTable(Player); // prints discard pile, trade area, and player's chains 
+        int tradeAreaSize(); // returns the size of trade area
+        Deck& getDeck(); // returns reference to deck
+        TradeArea* getTradeArea(); // returns pointer to trade area
+        DiscardPile* getDiscardPile(); // returns pointer to discard pile
+        Player& getPlayer1(); // returns reference to player 1
+        Player& getPlayer2(); // returns reference to player 2
     private:
         Player* p1;
         Player* p2;
@@ -32,7 +31,7 @@ class Table {
         TradeArea tradeArea;
 };
 
-//initializes game
+// initializes game
 Table::Table(Player* one, Player* two, Deck* cards)
 {
     p1 = one;
@@ -41,6 +40,8 @@ Table::Table(Player* one, Player* two, Deck* cards)
     discardPile = DiscardPile();
     tradeArea = TradeArea();
 }
+
+// constructor for when the game is resumed from file
 Table::Table(Player* one, Player* two, Deck* cards, DiscardPile* dp, TradeArea* tp )
 {
     p1 = one;
@@ -50,15 +51,10 @@ Table::Table(Player* one, Player* two, Deck* cards, DiscardPile* dp, TradeArea* 
     tradeArea = *tp;
 }
 
-/*
-Table::Table(istream& in, const CardFactory *cf) //constructor for when the game is resumed from file
-{
-    
-}
-*/
-
+// returns true when a player has won
 bool Table::win(string& s)
 {
+    // The winning condition is that all cards from the deck must have been picked up and then the player with the most coins wins
     if (deck->size() != 0) {
         return false;
     }
@@ -82,10 +78,13 @@ bool Table::win(string& s)
     }
 }
 
+// prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true)
 void Table::printHand(bool b, Player p)
 {
     p.printHand(cout,b);
 }
+
+// outputs the discard pile, trading area, and player's chains for the player to play 
 void Table::printTable(Player p) {
     cout << "\nDiscard Pile: ";
     if (discardPile.top()==NULL) {
@@ -101,39 +100,49 @@ void Table::printTable(Player p) {
     cout << "\nYour chains: " << endl;
     p.printChains();
 }
+
+// returns the trading area size
 int Table::tradeAreaSize() {
     return tradeArea.numCards();
 }
 
+// returns a reference to the deck
 Deck& Table::getDeck() 
 {
     return *deck;
 }
+
+// returns a reference to player1
 Player& Table::getPlayer1()
 {
     return *p1;
 }
+
+// returns a reference to player2
 Player& Table::getPlayer2()
 {
     return *p2;
 }
 
+// returns a pointer to trade area
 TradeArea* Table::getTradeArea() 
 {
     return &tradeArea;
 }
 
+// returns a pointer to discard pile 
 DiscardPile* Table::getDiscardPile()
 {
     return &discardPile;
 }
 
+// the insertion operator to print a Table to an std::ostream
 ostream &operator << (ostream &out, Table& t)
 {
-    out << "[Deck]\n" << t.getDeck() << endl;
-    out << "[DiscardPile]\n" << *t.getDiscardPile() << endl;
-    out << "[TradeArea]\n" << *t.getTradeArea() << endl;
-    out << "[Player1]\n" << t.getPlayer1() << endl; //Print the name, coins, chains 
-    out << "[Player2]\n" << t.getPlayer2() << endl; //Print the name, coins, chains 
+    out << "[Deck]\n" << t.getDeck() << endl; //Print the deck 
+    out << "[DiscardPile]\n" << *t.getDiscardPile() << endl; //Print the discard pile
+    out << "[TradeArea]\n" << *t.getTradeArea() << endl; //Print the trade area
+    out << "[Player1]\n" << t.getPlayer1() << endl; //Print the name, coins, chains, hand
+    out << "[Player2]\n" << t.getPlayer2() << endl; //Print the name, coins, chains, hand
     return out;
 } 

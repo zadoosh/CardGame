@@ -17,70 +17,72 @@ class Hand {
         Card* play(); // returns and removes the top card from the player's hand
         Card* top(); // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
-        friend ostream & operator << (ostream & out, Hand h);
+        friend ostream & operator << (ostream & out, Hand h); // the insertion operator (friend) to print Hand on an std::ostream
         void printHand(); // prints the player's hand
     private:
-        queue<Card*> hand;
-        int handSize;
+        queue<Card*> hand; // queue of Card pointers to hold the player's hand
+        int handSize; // to keep track of the hand size 
 };
 
 Hand::Hand(istream& in) //constructor for when the game is resumed from file
 {
-    int i = 0;
+    int i = 0; // to keep track of hand size
     while (!in.eof()) {
         string temp;
         in >> temp;
-        if (temp == "Blue") {
-            Card* blue = new Blue();
-            hand.push(blue);
-            i++;
+        if (temp == "Blue") { // if the string from istream is equal to card name
+            Card* tempCard = new Blue(); // creates temp Blue card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "Chili") {
-            Card* blue = new Chili();
-            hand.push(blue);
-            i++;
+        if (temp == "Chili") { // if the string from istream is equal to card name
+            Card* tempCard = new Chili(); // creates temp Chili card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "Stink") {
-            Card* blue = new Stink();
-            hand.push(blue);
-            i++;
+        if (temp == "Stink") { // if the string from istream is equal to card name
+            Card* tempCard = new Stink(); // creates temp Stink card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "Green") {
-            Card* blue = new Green();
-            hand.push(blue);
-            i++;
+        if (temp == "Green") { // if the string from istream is equal to card name
+            Card* tempCard = new Green(); // creates temp Green card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "soy") {
-            Card* blue = new soy();
-            hand.push(blue);
-            i++;
+        if (temp == "soy") { // if the string from istream is equal to card name
+            Card* tempCard = new soy(); // creates temp soy card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "black") {
-            Card* blue = new black();
-            hand.push(blue);
-            i++;
+        if (temp == "black") { // if the string from istream is equal to card name
+            Card* tempCard = new black(); // creates temp black card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "Red") {
-            Card* blue = new Red();
-            hand.push(blue);
-            i++;
+        if (temp == "Red") { // if the string from istream is equal to card name
+            Card* tempCard = new Red(); // creates temp Red card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
-        if (temp == "garden") {
-            Card* blue = new garden();
-            hand.push(blue);
-            i++;
+        if (temp == "garden") { // if the string from istream is equal to card name
+            Card* tempCard = new garden(); // creates temp garden card
+            hand.push(tempCard); // adds card to hand
+            i++; // increments hand size counter 
         }
         
     }
-    handSize = i;
+    handSize = i; // sets the hand size after counting how many cards are in hand from the file
 }
 
+// adds the card to the rear of the hand
 Hand& Hand::operator+=(Card *c)
 {
     hand.push(c);
-    return *this; //https://stackoverflow.com/questions/4581961/c-how-to-overload-operator
+    return *this; 
 }
 
+// returns and removes the top card from the player's hand
 Card* Hand::play()
 {
     Card* top = hand.front();
@@ -88,25 +90,28 @@ Card* Hand::play()
     return(top);
 }
 
+// returns but does not remove the top card from the player's hand
 Card* Hand::top()
 {
+    // if no card in hand, return NULL
     if (hand.size()== 0) {
         return NULL;
     }
     return(hand.front());
 }
 
+// returns and removes the Card at a given index
 Card* Hand::operator[](int index)
 {
-    list<Card*> listHand;
+    list<Card*> listHand; // temp list to store cards
     handSize = hand.size();
     Card* cardToReturn=NULL; 
-    for(int a = 0; a < handSize; a++)
+    for(int a = 0; a < handSize; a++) // to add each card to new temp list 
     {
         listHand.push_back(hand.front());
         hand.pop();
     }
-    for(int a = 0; a < handSize; a++)
+    for(int a = 0; a < handSize; a++) // check if the index is the same as the one in list, and take out card
     {
         if(a != index)
         {
@@ -119,12 +124,13 @@ Card* Hand::operator[](int index)
             listHand.pop_front();
         }
     }
-    return(cardToReturn);
+    return(cardToReturn); // return card taken out of hand
 }
 
-void Hand::printHand() // used to print hand so user can select which card to remove from hand
+// used to print hand so user can select which card to remove from hand
+void Hand::printHand() 
 {
-     queue<Card*> handToIterate = hand;
+     queue<Card*> handToIterate = hand; // store hand in another queue to use
      Card *tempCard;
      int count = 0;
      while(!handToIterate.empty())
@@ -136,25 +142,25 @@ void Hand::printHand() // used to print hand so user can select which card to re
      }
 }
 
-
+// the insertion operator to print Hand on an std::ostream
 ostream & operator << (ostream& out, Hand h)
 {
-    queue<Card*> handCopy;
-    list<Card*> listHand;
+    queue<Card*> handCopy; // another queue to copy hand
+    list<Card*> listHand; // temp list to hold hand
     h.handSize = h.hand.size();
-    for(int a = 0; a < h.handSize; a++)
+    for(int a = 0; a < h.handSize; a++) // add each Card from hand object to list
     {
         listHand.push_back(h.hand.front());
         h.hand.pop();
     }
     out << "cards = ";
-    for(int a = 0; a < h.handSize; a++)
+    for(int a = 0; a < h.handSize; a++) // output Cards from list and add back to temp queue
     {
         out <<listHand.front()->getName() <<" ";
         handCopy.push(listHand.front());
         listHand.pop_front();
     }
     out << endl;
-    h.hand = handCopy;
+    h.hand = handCopy; // copy temp queue back to original hand queue
     return out;
 }
