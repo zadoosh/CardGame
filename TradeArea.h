@@ -7,9 +7,11 @@ using namespace std;
 class TradeArea {
 
 public:
-	TradeArea() {
 
-	}
+	// default constructor
+	TradeArea() {} 
+
+	// returns true if the card can be legally added to the TradeArea
 	bool const legal(Card* c) {
 		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
 			if ((*itr)->getName() == c->getName()) {
@@ -18,6 +20,8 @@ public:
 		}
 		return false;
 	}
+
+	// removes a card of the corresponding bean name from the trade area
 	Card* const trade(string name) {
 		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
 			if ((*itr)->getName() == name) {
@@ -27,6 +31,8 @@ public:
 			}
 		}
 	}
+
+	// to discard a card from the trade area to discard pile
 	void discard(DiscardPile &p) {
 		for (Card* c: cards) {
 			Card* temp = c;
@@ -34,9 +40,13 @@ public:
 		}
 		cards = {};
 	}
+
+	// returns the number of cards in the trade area
 	int const numCards() {
 		return cards.size();
 	}
+
+	// oututs the trade area to console for the users to play
 	void print() {
 		int count = 0;
 		for (Card* c : cards)
@@ -48,10 +58,13 @@ public:
 		}
 	}
 
+	// adds the card to the trade area but it does not check if it is legal to place the card
 	TradeArea& operator+=(Card* c) { 
 		cards.push_back(c);
 		return *this;
 	}
+
+	// returns the card name of the card selected by user from the trade area
 	string cardNameAt(int pos) {
 		int count = 0;
 		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
@@ -62,13 +75,19 @@ public:
 			count++;
 		}
 	}
+
+	// the insertion operator (friend) to insert all the cards of the trade area to an std::ostream.
 	friend ostream& operator << (ostream& out, DiscardPile& d);
+
+	// is a constructor which accepts an istream and reconstruct the TradeArea from file.
 	TradeArea(istream& in);
 
 private:
 	std::list<Card*> cards = {};
 
 };
+
+// the insertion operator (friend) to insert all the cards of the trade area to an std::ostream.
 ostream& operator << (ostream& out, TradeArea& t)
 {
 	out << "tradearea = ";
@@ -77,42 +96,45 @@ ostream& operator << (ostream& out, TradeArea& t)
 	}
 	return out;
 }
-TradeArea::TradeArea(istream& in) //constructor for when the game is resumed from file
+
+// is a constructor which accepts an istream and reconstruct the TradeArea from file
+// constructor for when the game is resumed from file
+TradeArea::TradeArea(istream& in) 
 {
 	while (!in.eof()) {
 		string temp;
 		in >> temp;
-		if (temp == "Blue") {
-			Card* blue = new Blue();
-			cards.push_back(blue);
+		if (temp == "Blue") { // check if string from istream matches card name
+			Card* tempCard = new Blue(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "Chili") {
-			Card* blue = new Chili();
-			cards.push_back(blue);
+		if (temp == "Chili") { // check if string from istream matches card name
+			Card* tempCard = new Chili(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "Stink") {
-			Card* blue = new Stink();
-			cards.push_back(blue);
+		if (temp == "Stink") { // check if string from istream matches card name
+			Card* tempCard = new Stink(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "Green") {
-			Card* blue = new Green();
-			cards.push_back(blue);
+		if (temp == "Green") { // check if string from istream matches card name
+			Card* tempCard = new Green(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "soy") {
-			Card* blue = new soy();
-			cards.push_back(blue);
+		if (temp == "soy") { // check if string from istream matches card name
+			Card* tempCard = new soy(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "black") {
-			Card* blue = new black();
-			cards.push_back(blue);
+		if (temp == "black") { // check if string from istream matches card name
+			Card* tempCard = new black(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "Red") {
-			Card* blue = new Red();
-			cards.push_back(blue);
+		if (temp == "Red") { // check if string from istream matches card name
+			Card* tempCard = new Red(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
-		if (temp == "garden") {
-			Card* blue = new garden();
-			cards.push_back(blue);
+		if (temp == "garden") { // check if string from istream matches card name
+			Card* tempCard = new garden(); // create a temp card
+			cards.push_back(tempCard); // adds temp card back to trade area to resume playing
 		}
 	}
 }

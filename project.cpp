@@ -171,6 +171,7 @@ int main() {
 				(*current).buyThirdChain();
 			}
 		}
+		// 1 #################################################################################################################################
 		if (game.tradeAreaSize() != 0) //If TradeArea is not empty
 		{ 
 			//Add bean cards from the TradeArea to chains or discard them.
@@ -198,6 +199,8 @@ int main() {
 				}
 			} while (num >= 0 && game.tradeAreaSize() != 0);
 		}
+
+		// 2 #################################################################################################################################
 		bool step2 = true;
 		string repeat;
 		do {
@@ -240,8 +243,10 @@ int main() {
 			cin.clear();
 		//If player decides to
 			 //Play the now topmost card from Hand. 
+		// 3 #################################################################################################################################
 		} while(step2); //player is allowed to repeat step 2
 		
+		// 4 #################################################################################################################################
 		//If player decides to
                 //Show the player's full hand and player selects an arbitrary card
                 //Discard the arbitrary card from the player's hand and place it on the discard pile.
@@ -259,6 +264,7 @@ int main() {
 			*game.getDiscardPile() += toRemove;
 		}
 		
+		// 5 #################################################################################################################################
 		cout << "Drawing three cards from deck for trade area." << endl;
         //Draw three cards from the deck and place cards in the trade area
 		for(int x = 0; x < 3; x++)
@@ -315,6 +321,7 @@ int main() {
 			break;
 		}
 
+		// 6 #################################################################################################################################
 		//Draw two cards if possible from Deck and add the cards to the player's hand (at the back).
 		else if (game.getDeck().size()>0) {
 			(*current).addCard(game.getDeck().draw());
@@ -323,6 +330,7 @@ int main() {
 			}
 		}
 
+		// will be used to alternate player turns
 		if (player) {
 			current = &p2;
 			player = false;
@@ -332,11 +340,12 @@ int main() {
 			player = true;
 		}
 
-		// TO let users know who's turn it is 
+		// To let users know who's turn it is 
 		cout << "###################################################" << endl;
 		cout << "\t\t"<< (*current).getName() << "'s Turn."<<endl;
 		cout << "###################################################" << endl;
 
+		// will be used to alternate player turns
 		if (first) {
 			first = false;
 		}
@@ -344,6 +353,5 @@ int main() {
 			second = true;
 		}
 	}
-	
 	return 1;
 }
