@@ -9,7 +9,7 @@ class Card {
 public:
 
     // Will implement in the derived classes the table for how many cards are necessary to receive the corresponding number of coins
-    virtual int getCoinsPerCard(int) { 
+    virtual int getCoinsPerCard(int) const { 
         return 0;
     }
 
@@ -51,7 +51,7 @@ ostream& operator<<(std::ostream& os, Card& c)
 // Blue card class
 class Blue : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards >= 4 && cards<=20);
         if (cards >= 4 && cards <= 5) return 1;
@@ -82,7 +82,7 @@ public:
 // Chili card class
 class Chili : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards >= 3 && cards <= 18);
         if (cards >= 3 && cards <= 5) return 1;
@@ -113,7 +113,7 @@ public:
 // Stink card class
 class Stink : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards <= 16 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
@@ -144,7 +144,7 @@ public:
 // Green card class
 class Green : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards <= 14 && cards >= 3);
         if (cards >= 3 && cards <= 4) return 1;
@@ -175,7 +175,7 @@ public:
 // soy card class
 class soy : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
       //  assert(cards <= 12 && cards >= 2);
         if (cards >= 2 && cards <= 3) return 1;
@@ -206,7 +206,7 @@ public:
 // black card class
 class black : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards <= 10 && cards >= 2);
         if (cards >= 2 && cards <= 3) return 1;
@@ -237,7 +237,7 @@ public:
 // Red card class 
 class Red : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards <= 8 && cards >= 2);
         if (cards ==2) return 1;
@@ -268,7 +268,7 @@ public:
 // garden card class
 class garden : public Card {
 public:
-    int getCoinsPerCard(int cards)
+    int getCoinsPerCard(int cards)const
     {
         // assert(cards <= 6 && cards >= 2);
         if (cards ==2) return 2;

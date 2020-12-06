@@ -15,10 +15,10 @@ class Hand {
         Hand(istream& in); // is a constructor which accepts an istream and reconstruct the Hand from file
         Hand& operator+=(Card*); // adds the card to the rear of the hand
         Card* play(); // returns and removes the top card from the player's hand
-        Card* top(); // returns but does not remove the top card from the player's hand.
+        Card* top()const; // returns but does not remove the top card from the player's hand.
         Card* operator[](int); // returns and removes the Card at a given index.
         friend ostream & operator << (ostream & out, Hand h); // the insertion operator (friend) to print Hand on an std::ostream
-        void printHand(); // prints the player's hand
+        void printHand()const; // prints the player's hand
     private:
         queue<Card*> hand; // queue of Card pointers to hold the player's hand
         int handSize; // to keep track of the hand size 
@@ -91,7 +91,7 @@ Card* Hand::play()
 }
 
 // returns but does not remove the top card from the player's hand
-Card* Hand::top()
+Card* Hand::top() const
 {
     // if no card in hand, return NULL
     if (hand.size()== 0) {
@@ -128,7 +128,7 @@ Card* Hand::operator[](int index)
 }
 
 // used to print hand so user can select which card to remove from hand
-void Hand::printHand() 
+void Hand::printHand() const
 {
      queue<Card*> handToIterate = hand; // store hand in another queue to use
      Card *tempCard;

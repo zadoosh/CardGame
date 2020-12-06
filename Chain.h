@@ -18,12 +18,12 @@ class Chain{
         void operator+=(Card*); // adds a card to the Chain. If the run-time type does not match the template type of the chain and exception of type IllegalType needs to be raised.
         int sell(); // counts the number cards in the current chain and returns the number coins according to the function Card::getCardsPerCoin. 
         friend ostream& operator << (ostream & out, Chain<Card>& c); // insertion operator (friend) to print Chain on an std::ostream
-        bool isEmpty(); // checks if the chain is empty
-        void print(); // prints the chain
+        bool isEmpty()const; // checks if the chain is empty
+        void print()const; // prints the chain
         vector<Card*>* getChain() { // returns a pointer to the chain 
             return &cardChain;
         }
-        string printTypeName(); // returns the type of Card the Chain holds
+        string printTypeName()const; // returns the type of Card the Chain holds
         Chain() {}; // default constructor 
     private:
         vector<Card*> cardChain ; // the chain is stored in a vector of Card pointers
@@ -97,7 +97,7 @@ Chain<Card>::Chain(Card *firstCard)
 
 // returns Card type of Chain
 template <class Card>
-string Chain<Card>::printTypeName() {
+string Chain<Card>::printTypeName()const {
     return cardChain[0]->getName();
 }
 
@@ -131,13 +131,13 @@ ostream& operator << (ostream &out, Chain<Card>& chain)
 
 // returns bool value for whether the chain is empty
 template <class Card>
-bool Chain<Card>::isEmpty() {
+bool Chain<Card>::isEmpty() const{
     return(cardChain.empty());
 }
 
 // prints chain to console 
 template <class Card>
-void Chain<Card>::print() {
+void Chain<Card>::print() const{
     if (isEmpty()) {
         cout << "Empty";
     }

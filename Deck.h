@@ -15,7 +15,7 @@ public:
 		return temp;
 	}
 
-	bool isEmpty(); // to check if the deck is empty
+	bool isEmpty()const; // to check if the deck is empty
 
 	// the insertion operator (friend) to insert all the cards in the deck to an std::ostream
 	friend ostream& operator << (ostream& out, Deck& d);
@@ -64,7 +64,7 @@ Deck::Deck(istream& in) //constructor for when the game is resumed from file
 	}
 }
 // checks if deck is empty (used for winning condition and to end game)
-bool Deck::isEmpty()
+bool Deck::isEmpty()const
 {
 	if(!(this == NULL)|| size() > 0 )
 	{

@@ -12,7 +12,7 @@ public:
 	TradeArea() {} 
 
 	// returns true if the card can be legally added to the TradeArea
-	bool const legal(Card* c) {
+	bool  legal(Card* c) {
 		for (std::list<Card*>::iterator itr = cards.begin(); itr != cards.end(); itr++) {
 			if ((*itr)->getName() == c->getName()) {
 				return true;
@@ -42,12 +42,12 @@ public:
 	}
 
 	// returns the number of cards in the trade area
-	int const numCards() {
+	int numCards() const {
 		return cards.size();
 	}
 
 	// oututs the trade area to console for the users to play
-	void print() {
+	void print() const {
 		int count = 0;
 		for (Card* c : cards)
 		{

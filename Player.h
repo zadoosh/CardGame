@@ -17,7 +17,7 @@ public:
 	}
 
 	// returns a reference to player's name
-	string& getName() {
+	string getName() const {
 		return name;
 	}
 
@@ -27,14 +27,14 @@ public:
 	}
 
 	// returns player's coin total
-	int const getNumCoins() {
+	int getNumCoins() const {
 		return coins;
 	}
 
 	// returns player's number of chains
 	// returns 3 by checking boolean third which would be true if player has a 3rd chain
 	// returns 2 if third is false
-	int getMaxNumChains() {
+	int getMaxNumChains() const {
 		if (third) {
 			return 3;
 		}
@@ -44,7 +44,7 @@ public:
 	}
 
 	// returns the number of chains the player has currently
-	int getNumChains() {
+	int getNumChains() const {
 		int count = 0;
 		// must check if chain is empty to not count that as a chain the player has
 		for (Chain<Card> c : chains) {
@@ -56,7 +56,7 @@ public:
 	}
 
 	// prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true) to the supplied ostream
-	void printHand(ostream &o,bool b)
+	void printHand(ostream &o,bool b)const
 	{
 		if (b == false) //if false, print top card of player's hand
 		{

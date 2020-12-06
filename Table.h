@@ -13,11 +13,11 @@ class Table {
     public:
         Table(Player*, Player*, Deck*); //Default constructor
         Table(Player*, Player*, Deck*, DiscardPile*, TradeArea*); // is a constructor which accepts an istream and reconstruct the Table from file. 
-        bool win(string&); // returns true when a player has won. 
-        void printHand(bool, Player p); // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
+        bool win(string&)const; // returns true when a player has won. 
+        void printHand(bool, Player p)const; // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true).
         friend ostream &operator << (ostream& out, Table& t); // the insertion operator (friend) to print a Table to an std::ostream
-        void printTable(Player); // prints discard pile, trade area, and player's chains 
-        int tradeAreaSize(); // returns the size of trade area
+        void printTable(Player)const; // prints discard pile, trade area, and player's chains 
+        int tradeAreaSize()const; // returns the size of trade area
         Deck& getDeck(); // returns reference to deck
         TradeArea* getTradeArea(); // returns pointer to trade area
         DiscardPile* getDiscardPile(); // returns pointer to discard pile
@@ -52,7 +52,7 @@ Table::Table(Player* one, Player* two, Deck* cards, DiscardPile* dp, TradeArea* 
 }
 
 // returns true when a player has won
-bool Table::win(string& s)
+bool Table::win(string& s)const
 {
     // The winning condition is that all cards from the deck must have been picked up and then the player with the most coins wins
     if (deck->size() != 0) {
@@ -79,13 +79,13 @@ bool Table::win(string& s)
 }
 
 // prints the top card of the player's hand (with argument false) or all of the player's hand (with argument true)
-void Table::printHand(bool b, Player p)
+void Table::printHand(bool b, Player p)const
 {
     p.printHand(cout,b);
 }
 
 // outputs the discard pile, trading area, and player's chains for the player to play 
-void Table::printTable(Player p) {
+void Table::printTable(Player p)const {
     cout << "\nDiscard Pile: ";
     if (discardPile.top()==NULL) {
         cout << "None";
@@ -97,12 +97,14 @@ void Table::printTable(Player p) {
     cout << "\nTrading Area: ";
     tradeArea.print();
     cout << endl;
+    /*
     cout << "\nYour chains: " << endl;
     p.printChains();
+    */
 }
 
 // returns the trading area size
-int Table::tradeAreaSize() {
+int Table::tradeAreaSize() const{
     return tradeArea.numCards();
 }
 

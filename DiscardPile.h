@@ -11,8 +11,8 @@ class DiscardPile : vector<Card*>{
         DiscardPile(istream& in); // is a constructor which accepts an istream and reconstructs the DiscardPile from file. 
         DiscardPile& operator+=(Card*); // discards the card to the pile.
         Card* pickUp(); // returns and removes the top card from the discard pile.
-        Card* top(); // returns but does not remove the top card from the discard pile
-        void print(ostream&); // to insert all the cards in the DiscardPile to an std::ostream.
+        Card* top()const; // returns but does not remove the top card from the discard pile
+        void print(ostream&)const; // to insert all the cards in the DiscardPile to an std::ostream.
         friend ostream& operator << (ostream& out, DiscardPile& d); // the insertion operator (friend) to insert only the top card of the discard pile to an std::ostream
     protected:
         int size; // keep track of discard pile size
@@ -88,8 +88,7 @@ Card* DiscardPile::pickUp()
 }
 
 // returns but does not remove the top card from the discard pile
-Card* DiscardPile::top()
-{
+Card* DiscardPile::top() const{
     if (size == 0) {
         return NULL;
     }
@@ -99,7 +98,7 @@ Card* DiscardPile::top()
 }
 
 // to insert all the cards in the DiscardPile to an std::ostream
-void DiscardPile::print(ostream& out)
+void DiscardPile::print(ostream& out)const
 {
     out << "DiscardPile" << endl;
     for(Card *c : *this)
